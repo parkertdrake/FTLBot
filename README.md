@@ -1,2 +1,2 @@
-##FTL Bot Thoughts:
+### FTL Bot Readme
 
