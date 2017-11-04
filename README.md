@@ -1,4 +1,4 @@
-FTL Bot Thoughts:
+##FTL Bot Thoughts:
 
 Here's how I can interact with the game:
     1. I have images of the screen.
