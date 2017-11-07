@@ -23,6 +23,9 @@ def screen_grab():
     far_y = rect[3]
     return np.array(ImageGrab.grab(bbox=(x, y, far_x, far_y)))
 
+def save_screen(image, filename):
+    cv2.imwrite(filename, cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+
 """
 counts down from seconds. prints the result
 @:param seconds seconds to count down
@@ -55,6 +58,6 @@ def click_screen(row, col):
 countdown(5)
 image = screen_grab()
 for i in range(10):
-    cv2.imwrite('screen_grab' + str(i) + '.png', cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+   save_screen(str(i) + ".png")
 
 
