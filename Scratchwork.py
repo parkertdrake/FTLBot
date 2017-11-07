@@ -27,7 +27,6 @@ def screen_record():
         time.sleep(1)
         # starts at 0, 0 (upper left hand corner) and grabs an 800 by 640 image.
         printscreen = np.array(ImageGrab.grab(bbox=(x, y, farx, fary)))
-        print printscreen[10, 10]
         #cv2.imshow('window', cv2.cvtColor(printscreen, cv2.COLOR_BGR2RGB))
         cv2.imwrite('screen_grab' + str(i) + '.png', cv2.cvtColor(printscreen, cv2.COLOR_BGR2RGB))
 

@@ -1,24 +1,41 @@
-# the game library needs to abstract away all of the hairy stuff.
-# I want to have a game object that I can query and retrieve all the properties of the game at that time.
-# ie weapon_status = Game.weapons_status()
-
-
+"""
+Module to hold code to interact with the game
+"""
 
 import cv2
-
 import time
+import Utility
+
+# a way I could do this is to store none of the information in "Ship" classes or anything like that.
+# the only source of truth is the current image of the game state.
+# After all, every member variable in the class would just be based on the latest image. So why store it anywhere? Just cut out the middleman.
+# Want to know a new property? Implement a new get function. That's it. No extra member variables.
+# We can still be clever in the decomposition of how we retrieve that information (like get me the status of the entire weapons system in one function).
+# The only thing I can think that might be useful to store permanently are properties that will never change from the beginning of the encounter to the end.
+    # Like enemy ship type, total reactor power available, etc.
+    # Would be nice not to have to process that kind of info every time I need it.
 
 
+#what's the end goal here?
+    # I want to have a game/encounter object that I(the AI) can query for all the information I need to make decisions.
+    # I don't want to have to guess as to the age of the information. I need to be able to count on it being as up to date as possible.
+    # I don't want to have to know anything about pixels or where things are on the screen. I want to be able to do things like:
+        # game.get_enemy_health(), game.target_enemy_shields(missiles), game.get_weapon_status(missiles)
 
+class Encounter:
 
-
-class Game:
-
-    # constructor
+    """
+    Encounter constructor
+    """
     def __init__(self):
         self.kestrel_health = 0
+        self.kestrel_shield = 0
+        self.kestrel_weapon_status = []
 
-    # given image, update teh status of the Kestrel's health
+    """
+    Updates the kestrel's health
+    @:param image of game 
+    """
     def update_kestrel_health(self, image):
         health = 0  # 0 to start, increment with every green segment found
         pixel_row = 125  # y position of the hull health bar
@@ -35,25 +52,45 @@ class Game:
 
         self.kestrel_health = health
 
-    def fire_missiles(self):
+    """
+    updates kestrel's shield level
+    @:param image of game screen
+    """
+    def update_kestrel_shield(self, image):
+        shield = 0
+        row = 22
+        cols = [60, 109, 152, 202]
+        for col in cols:
+            pixel = image[row, col]
+            if pixel[0] == 27 and pixel[1] == 132 and pixel[2] == 155:
+                 shield += 1
+        self.kestrel_shield = shield
 
-    #increases weapon power to specified level (if that's too high, it just uses all available power)
+    """
+    Updates the weapon status of the kestrel
+    @:param image of the game screen    
+    """
+    def update_kestrel_weapons_system(self, image):
+        weapon_status = []
+        row = 1340
+        cols = [517, 710]
+        for col in cols:
+            status = False  # default not ready to fire
+            pixel = image[row, col]
+            if pixel[0] == 116 and pixel[1] == 255 and pixel[2] == 121:
+                status = True
+            weapon_status.append(status)
+        self.kestrel_weapon_status = weapon_status
+
+    def update_kestrel_shields_system(self):
+        print "hello"
+
     def power_up_weapons(self, level):
+        for i in range (level):
+            Utility.tap_key("w")
 
 
 
 
-game = Game()
-print game.kestrel_health
-
-
-count = 0
-while count < 200:
-    img = Game.screen_grab()
-    game.update_kestrel_health(img)
-    cv2.imwrite('SCREEN ' + str(count) + '.png', cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-    print "Kestrel health: ", game.kestrel_health
-    time.sleep(.25)
-    count += 1
 
 

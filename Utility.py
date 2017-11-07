@@ -1,7 +1,13 @@
+"""
+Module to hold utility functions for input, screen capture, timing, etc.
+
+"""
+
 import time
 import numpy as np
 from win32gui import GetForegroundWindow, GetWindowRect
 from PIL import ImageGrab
+import cv2
 import pyautogui
 
 """
@@ -25,3 +31,30 @@ def countdown(seconds):
     for i in list(range(seconds))[::-1]:
         print(i + 1)
         time.sleep(1)
+
+"""
+taps the key specified
+@:param key key to be pushed
+"""
+def tap_key(key):
+    pyautogui.press(key)
+
+"""
+Clicks game screen at specified location
+@:param row of click
+@:param col of click
+"""
+def click_screen(row, col):
+    handle = GetForegroundWindow()
+    rect = GetWindowRect(handle)
+    x = rect[0]
+    y = rect[1]
+    pyautogui.click(x + col, y + row)
+
+
+countdown(5)
+image = screen_grab()
+for i in range(10):
+    cv2.imwrite('screen_grab' + str(i) + '.png', cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+
+

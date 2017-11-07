@@ -2,7 +2,6 @@
 
 A bot to play FTL, 2 parts.
 
-
   1. A game interaction library. The ability to:
       - Read the game state (all done through image processing)
       - Ship health, weapon status, power status, shield status, enemy charging status, etc.
