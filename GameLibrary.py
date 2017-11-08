@@ -5,6 +5,7 @@ Module to hold code to interact with the game
 import cv2
 import time
 import Utility
+import Kestrel
 
 # a way I could do this is to store none of the information in "Ship" classes or anything like that.
 # the only source of truth is the current image of the game state.
@@ -28,9 +29,7 @@ class Encounter:
     Encounter constructor
     """
     def __init__(self):
-        self.kestrel_health = 0
-        self.kestrel_shield = 0
-        self.kestrel_weapon_status = []
+        self.player_ship = Kestrel()
 
     """
     Updates the kestrel's health
@@ -64,7 +63,7 @@ class Encounter:
             pixel = image[row, col]
             if pixel[0] == 27 and pixel[1] == 132 and pixel[2] == 155:
                  shield += 1
-        self.kestrel_shield = shield
+
 
     """
     Updates the weapon status of the kestrel
