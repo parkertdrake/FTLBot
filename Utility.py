@@ -1,5 +1,6 @@
 """
 Module to hold utility functions for input, screen capture, timing, etc.
+If you're thinking of a function that doesn't seem to fit anywhere else, it's here.
 """
 
 import time
