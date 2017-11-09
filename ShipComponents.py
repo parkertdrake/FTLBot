@@ -57,12 +57,15 @@ class WeaponSystem(System):
         self.weapons = weapons
 
 
+    """
+    Install a new weapon onto the ship.
+    """
     def add_weapon(self, weapon):
         if len(self.weapons < 4):
             self.weapons.append(weapon)
 
     def reorder_weapons(self, weapon_index1, weapon_index2):
-        #TODO implement weapons reorder
+
         pass
 
 """
