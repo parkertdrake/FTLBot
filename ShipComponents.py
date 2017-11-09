@@ -150,7 +150,7 @@ class CrewMember:
 """
 Class to hold rooms on the ship. Might be pretty much just a pixel location. Later.
 """
-class Room:
+class RoomSystem:
     #TODO: Implement room class
     def __init__(self):
         pass
