@@ -1,11 +1,11 @@
 """
 @author: Parker Drake
 Module to hold code to interact with the game
+Idea: Command objects as the interface between the game library and an outside source
+    - Game holds a list of "commands" as available orders
 
 """
 
-import cv2
-import time
 import Utility
 from PlayerShips import Kestrel
 
@@ -67,18 +67,32 @@ class Encounter:
     @:param image of game screen
     """
     def update_player_shield(self, image):
+        # first count the power level
         shield_power = 0
         col = 187
         row = 1376
         for i in range(10): # no way you've got more than 10 power in your shield system
-            print "target: ", row, col
             pixel = image[row,col]
             if pixel[1] > 200: # is it pretty green?
-                print "it's green!"
                 shield_power += 1
             row -= 25
         self.player_ship.shields.power_level = shield_power # set it directly, we have evidence that it is this power level.
+        #now count the bubbles. Do this separately! It might be fully powered, but we don't know if the shields have taken a hit.
+        shield_bubbles = 0
+        row = 219
+        cols = [60, 105, 160, 205] # columns of shield bubble indicators onscreen
+        for col in cols:
+            pixel = image[row, col]
+            if pixel[2]  > 200: # is it pretty blue?
+                shield_bubbles += 1
+        self.player_ship.shields.bubbles = shield_bubbles
 
+    """
+    Updates player engine status
+    """
+    def update_player_engine(self, image):
+        #need to derive health, power status, and capacity (actually don't need to derive this).
+        pass
 
 
 
@@ -86,8 +100,9 @@ Utility.countdown(5)
 game = Encounter()
 image = Utility.screen_grab(True, "Test4.png")
 game.update(image)
-print game.player_ship.hull
-print game.player_ship.shields.power_level
+print "Hull: ", game.player_ship.hull
+print "Shield Power: ", game.player_ship.shields.power_level
+print "Shield Bubbles: ", game.player_ship.shields.bubbles
 
 
 
