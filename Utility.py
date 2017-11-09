@@ -9,22 +9,46 @@ from win32gui import GetForegroundWindow, GetWindowRect
 from PIL import ImageGrab
 import cv2
 import pyautogui
+import pytesseract
+from PIL import Image
+import os
+pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files (x86)/Tesseract-OCR/tesseract' # needed for tesseract OCR
+
 
 """
 grabs a picture of the window in the foreground. Handles all the positioning and sizing
 @:return np array of the screen image
 """
-def screen_grab():
+def screen_grab(save=False, filename="None"):
     handle = GetForegroundWindow()
     rect = GetWindowRect(handle)
     x = rect[0]
     y = rect[1]
     far_x = rect[2]
     far_y = rect[3]
-    return np.array(ImageGrab.grab(bbox=(x, y, far_x, far_y)))
+    image = np.array(ImageGrab.grab(bbox=(x, y, far_x, far_y)))
+    if (save):
+        save_screen(image, filename)
+    return image
 
+"""
+Helper function for saving images
+@:param image: image to save
+@:param filename: name desired for file
+"""
 def save_screen(image, filename):
     cv2.imwrite(filename, cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+
+"""
+Given image, get the text out of it as a string using tesseract OCR
+@:param image: image to be analyzed (as a np array)
+@:return string of the text in the image
+"""
+def image_text(image):
+    save_screen(image, 'temp.png') #drop it into a temp file
+    text = pytesseract.image_to_string(Image.open('test.png'))
+    os.remove('temp.png')
+    return text
 
 """
 counts down from seconds. prints the result
@@ -53,11 +77,5 @@ def click_screen(row, col):
     x = rect[0]
     y = rect[1]
     pyautogui.click(x + col, y + row)
-
-
-countdown(5)
-image = screen_grab()
-for i in range(10):
-   save_screen(str(i) + ".png")
 
 
