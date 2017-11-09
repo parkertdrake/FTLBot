@@ -4,7 +4,6 @@ A class to hold the Kestrel Ship. Definitely this will need to be extended in th
 
 """
 
-
 import ShipComponents
 
 class Kestrel:
