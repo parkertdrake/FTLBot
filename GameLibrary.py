@@ -1,11 +1,14 @@
 """
+@author: Parker Drake
 Module to hold code to interact with the game
+
 """
 
 import cv2
 import time
 import Utility
-import Kestrel
+from PlayerShips import Kestrel
+
 
 # a way I could do this is to store none of the information in "Ship" classes or anything like that.
 # the only source of truth is the current image of the game state.
@@ -22,7 +25,6 @@ import Kestrel
     # I don't want to have to guess as to the age of the information. I need to be able to count on it being as up to date as possible.
     # I don't want to have to know anything about pixels or where things are on the screen. I want to be able to do things like:
         # game.get_enemy_health(), game.target_enemy_shields(missiles), game.get_weapon_status(missiles)
-
 class Encounter:
 
     """
@@ -32,13 +34,22 @@ class Encounter:
         self.player_ship = Kestrel()
 
     """
+    Wrapper function around all game component update calls
+    @:param image: image of game screen    
+    """
+    def update(self, image):
+        self.update_player_health(image)
+        self.update_player_shield(image)
+
+    """
     Updates the kestrel's health
     @:param image of game 
     """
-    def update_kestrel_health(self, image):
+    def update_player_health(self, image):
         health = 0  # 0 to start, increment with every green segment found
         pixel_row = 125  # y position of the hull health bar
 
+        #column of health segments
         pixel_columns = [37, 57, 87, 110, 137, 152, 182, 199, 224, 256,
                         285, 299, 331, 350, 371, 401, 419, 442, 472, 498,
                         519, 541, 562, 589, 614, 640, 655, 686, 711, 730]
@@ -49,44 +60,35 @@ class Encounter:
             if pixel[0] > 40 and pixel[1] > 40 and pixel[2] > 40:  # 120, 255, 120 is the color of the health segments
                 health += 1
 
-        self.kestrel_health = health
+        self.player_ship.hull = health
 
     """
-    updates kestrel's shield level
+    updates players shield power level
     @:param image of game screen
     """
-    def update_kestrel_shield(self, image):
-        shield = 0
-        row = 22
-        cols = [60, 109, 152, 202]
-        for col in cols:
-            pixel = image[row, col]
-            if pixel[0] == 27 and pixel[1] == 132 and pixel[2] == 155:
-                 shield += 1
+    def update_player_shield(self, image):
+        shield_power = 0
+        col = 187
+        row = 1376
+        for i in range(10): # no way you've got more than 10 power in your shield system
+            print "target: ", row, col
+            pixel = image[row,col]
+            if pixel[1] > 200: # is it pretty green?
+                print "it's green!"
+                shield_power += 1
+            row -= 25
+        self.player_ship.shields.power_level = shield_power # set it directly, we have evidence that it is this power level.
 
 
-    """
-    Updates the weapon status of the kestrel
-    @:param image of the game screen    
-    """
-    def update_kestrel_weapons_system(self, image):
-        weapon_status = []
-        row = 1340
-        cols = [517, 710]
-        for col in cols:
-            status = False  # default not ready to fire
-            pixel = image[row, col]
-            if pixel[0] == 116 and pixel[1] == 255 and pixel[2] == 121:
-                status = True
-            weapon_status.append(status)
-        self.kestrel_weapon_status = weapon_status
 
-    def update_kestrel_shields_system(self):
-        print "hello"
 
-    def power_up_weapons(self, level):
-        for i in range (level):
-            Utility.tap_key("w")
+Utility.countdown(5)
+game = Encounter()
+image = Utility.screen_grab(True, "Test4.png")
+game.update(image)
+print game.player_ship.hull
+print game.player_ship.shields.power_level
+
 
 
 
