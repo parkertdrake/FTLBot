@@ -117,9 +117,17 @@ Class for MedBays
     No extra properties, maybe healing rate or something?
 """
 class MedBaySystem(System):
-    #TODO: implement MedBay System class
-    def __init__(self):
-        pass
+    """
+    constructor
+    @:param capacity: power capacity of the system
+    @:param health: current health status of the system (number of intact bars)
+    @:param power_level: current power level of the system
+    @:param location: pixel location of the system onscreen. Tuple (row, col). Needed for clicking on the system.
+    """
+    def __init__(self, capacity, health, power_level):
+        self.capacity = capacity
+        self.health = health
+        self.power_level = power_level
 
 """
 Class for Oxygen Systems
