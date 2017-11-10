@@ -40,6 +40,7 @@ class Encounter:
     def update(self, image):
         self.update_player_health(image)
         self.update_player_shield(image)
+        self.update_player_engine(image)
 
     """
     Updates the kestrel's health
@@ -56,27 +57,19 @@ class Encounter:
         for col in pixel_columns:
             pixel = image[pixel_row, col]
             # print x, y, pixel
-
-            if pixel[0] > 40 and pixel[1] > 40 and pixel[2] > 40:  # 120, 255, 120 is the color of the health segments
+            color = Utility.color(pixel)
+            if color == "green" or color == "red" or color == "orange":
                 health += 1
 
         self.player_ship.hull = health
 
     """
-    updates players shield power level
+    updates players shield power level, bubbles, and 
     @:param image of game screen
     """
     def update_player_shield(self, image):
-        # first count the power level
-        shield_power = 0
-        col = 187
-        row = 1376
-        for i in range(10): # no way you've got more than 10 power in your shield system
-            pixel = image[row,col]
-            if pixel[1] > 200: # is it pretty green?
-                shield_power += 1
-            row -= 25
-        self.player_ship.shields.power_level = shield_power # set it directly, we have evidence that it is this power level.
+        self.player_ship.shields.health, self.player_ship.shields.power_level = \
+            self.get_system_health_power(0, image, self.player_ship.shields.capacity)
         #now count the bubbles. Do this separately! It might be fully powered, but we don't know if the shields have taken a hit.
         shield_bubbles = 0
         row = 219
@@ -91,8 +84,36 @@ class Encounter:
     Updates player engine status
     """
     def update_player_engine(self, image):
-        #need to derive health, power status, and capacity (actually don't need to derive this).
-        pass
+        health, power = self.get_system_health_power(1, image, self.player_ship.engines.capacity)
+        self.player_ship.engines.health = health
+        self.player_ship.engines.power_level = power
+
+
+    """
+    Given image, counts the healthy power segments (powered or unpowered of a system), and the power level 
+    This is its own function so I'm not repeating the same for loop for every system
+    @:param image: image of the game screen
+    @:param index: index of system on the screen (shields is 0, engines is 1, etc etc.)
+    @:param capacity: max capacity of the system. Health can never exceed this number.
+    @:returns tuple representing the (health, power) of a system. 
+    """
+    def get_system_health_power(self, index, image, capacity):
+        row = 1381 # intitial segment is at row 1381
+        row_height = 16 # 16 pixels between segments
+        #column is a tuple because I'm sampling 2 pixels in the segment. Both must be not red for the segment to be healthy.
+        cols = [(170, 201), (242, 273), (313, 345), (386, 417), (458, 489)]
+        health = 0
+        power = 0
+        for i in range(capacity):
+            pixel_1 = image[row][cols[index][0]]
+            pixel_2 = image[row][cols[index][1]]
+            if Utility.color(pixel_1) != "red" and Utility.color(pixel_2) != "red":
+                health += 1
+            if Utility.color(pixel_1) == "green" and Utility.color(pixel_2) == "green":
+                power += 1
+            row -= row_height # move to next segment
+        return health, power
+
 
 
 
@@ -101,8 +122,9 @@ game = Encounter()
 image = Utility.screen_grab(True, "Test4.png")
 game.update(image)
 print "Hull: ", game.player_ship.hull
-print "Shield Power: ", game.player_ship.shields.power_level
-print "Shield Bubbles: ", game.player_ship.shields.bubbles
+print "Shield Power: ", game.player_ship.shields.power_level, ", Shield Health: ", game.player_ship.shields.health, \
+    ", Shield Bubbles: ", game.player_ship.shields.bubbles
+print  "Engines Power: ", game.player_ship.engines.power_level, ", Engine Health: ", game.player_ship.engines.health
 
 
 

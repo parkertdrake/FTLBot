@@ -108,7 +108,7 @@ def color(pixel):
     if b > r * 2 and b > g * 2 and b > 150:
         return "blue"
 
-    if r > 180 and g > 90 and b < 20:
+    if r > 130 and g > 90 and b < 100:
         return "orange"
 
 

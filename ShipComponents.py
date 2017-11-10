@@ -106,9 +106,11 @@ Class for engines
     Engine systems have no extra properties
 """
 class EngineSystem(System):
-    #TODO: Implement Engine System class
-    def __init__(self):
-        pass
+    def __init__(self, capacity, health, power_level):
+        self.capacity = capacity
+        self.health = health
+        self.power_level = power_level
+        self.bubbles = power_level/2
 
 """
 Class for MedBays
