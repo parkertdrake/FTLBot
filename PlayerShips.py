@@ -17,3 +17,5 @@ class Kestrel:
         #self.medbay = ShipComponents.MedBaySystem()
         #self.crew = ShipComponents.Crew()
 
+
+
