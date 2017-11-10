@@ -13,8 +13,8 @@ class Kestrel:
         self.reactor_available = 0
         self.shields = ShipComponents.ShieldSystem(2, 2, 2) # default Kestrel is fully powered 1 bubble shield
         self.engines = ShipComponents.EngineSystem(2, 2, 2)
+        self.medbay = ShipComponents.MedBaySystem(1, 1, 1) # 1 power medbay
         #self.weapons = ShipComponents.WeaponSystem()
-        #self.medbay = ShipComponents.MedBaySystem()
         #self.crew = ShipComponents.Crew()
 
 
