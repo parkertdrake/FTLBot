@@ -110,7 +110,6 @@ class EngineSystem(System):
         self.capacity = capacity
         self.health = health
         self.power_level = power_level
-        self.bubbles = power_level/2
 
 """
 Class for MedBays
@@ -135,9 +134,11 @@ Class for Oxygen Systems
     Could possibly bundle oxygen level of the whole ship into this
 """
 class OxygenSystem(System):
-    #TODO: implement oxygen system class
-    def __init__(self):
-        pass
+    def __init__(self, capacity, health, power_level):
+        self.capacity = capacity
+        self.health = health
+        self.power_level = power_level
+
 
 """
 Class for the crew

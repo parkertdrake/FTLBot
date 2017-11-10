@@ -42,6 +42,7 @@ class Encounter:
         self.update_player_shield(image)
         self.update_player_engine(image)
         self.update_player_medbay(image)
+        self.update_player_oxygen(image)
 
     """
     Updates the kestrel's health
@@ -98,6 +99,14 @@ class Encounter:
         self.player_ship.medbay.power_level = power
 
     """
+    Updates the players oxygen system
+    """
+    def update_player_oxygen(self, image):
+        health, power = self.get_system_health_power(3, image, self.player_ship.oxygen.capacity)
+        self.player_ship.oxygen.health = health
+        self.player_ship.oxygen.power_level = power
+
+    """
     Given image, counts the healthy power segments (powered or unpowered of a system), and the power level 
     This is its own function so I'm not repeating the same for loop for every system
     @:param image: image of the game screen
@@ -130,8 +139,9 @@ class Encounter:
         print "Hull: ", self.player_ship.hull
         print "Shield Power: ", self.player_ship.shields.power_level, ", Shield Health: ", game.player_ship.shields.health, \
             ", Shield Bubbles: ", self.player_ship.shields.bubbles
-        print  "Engines Power: ", self.player_ship.engines.power_level, ", Engine Health: ", game.player_ship.engines.health
+        print  "Engine Power: ", self.player_ship.engines.power_level, ", Engine Health: ", game.player_ship.engines.health
         print  "Medbay Power: ", self.player_ship.medbay.power_level, ", Medbay Health: ", game.player_ship.medbay.health
+        print  "Oxygen Power: ", self.player_ship.oxygen.power_level, ", Oxygen Health: ", game.player_ship.oxygen.health
 
 Utility.countdown(5)
 game = Encounter()
