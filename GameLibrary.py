@@ -41,6 +41,7 @@ class Encounter:
         self.update_player_health(image)
         self.update_player_shield(image)
         self.update_player_engine(image)
+        self.update_player_medbay(image)
 
     """
     Updates the kestrel's health
@@ -89,6 +90,14 @@ class Encounter:
         self.player_ship.engines.power_level = power
 
     """
+    Updates the players medbay
+    """
+    def update_player_medbay(self, image):
+        health, power = self.get_system_health_power(2, image, self.player_ship.medbay.capacity)
+        self.player_ship.medbay.health = health
+        self.player_ship.medbay.power_level = power
+
+    """
     Given image, counts the healthy power segments (powered or unpowered of a system), and the power level 
     This is its own function so I'm not repeating the same for loop for every system
     @:param image: image of the game screen
@@ -100,12 +109,13 @@ class Encounter:
         row = 1381 # intitial segment is at row 1381
         row_height = 16 # 16 pixels between segments
         #column is a tuple because I'm sampling 2 pixels in the segment. Both must be not red for the segment to be healthy.
-        cols = [(170, 201), (242, 273), (313, 345), (386, 417), (458, 489)]
+        cols = [(170, 201), (242, 273), (314, 345), (386, 417), (458, 489)]
         health = 0
         power = 0
         for i in range(capacity):
             pixel_1 = image[row][cols[index][0]]
             pixel_2 = image[row][cols[index][1]]
+            #print Utility.color(pixel_1), Utility.color(pixel_2)
             if Utility.color(pixel_1) != "red" and Utility.color(pixel_2) != "red":
                 health += 1
             if Utility.color(pixel_1) == "green" and Utility.color(pixel_2) == "green":
@@ -121,7 +131,7 @@ class Encounter:
         print "Shield Power: ", self.player_ship.shields.power_level, ", Shield Health: ", game.player_ship.shields.health, \
             ", Shield Bubbles: ", self.player_ship.shields.bubbles
         print  "Engines Power: ", self.player_ship.engines.power_level, ", Engine Health: ", game.player_ship.engines.health
-
+        print  "Medbay Power: ", self.player_ship.medbay.power_level, ", Medbay Health: ", game.player_ship.medbay.health
 
 Utility.countdown(5)
 game = Encounter()
