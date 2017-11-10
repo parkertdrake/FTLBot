@@ -78,4 +78,43 @@ def click_screen(row, col):
     y = rect[1]
     pyautogui.click(x + col, y + row)
 
+"""
+Gauges the color of the pixel
+@:param pixel: tiny array showing the color of the pixel
+@returns: a lowercase string representing the color
+"""
+def color(pixel):
+    r = pixel[0]
+    g = pixel[1]
+    b = pixel[2]
+
+    # pretty tight variance on the colors, and overall high pixel values
+    if abs(r - g) < 3 and abs(r - b) < 3 and abs(g - b) < 3 and r + g + b > 715:
+        return "white"
+
+    # pretty tight variance on the colors, and overall low pixel values
+    if abs(r - g) < 3 and abs(r - b) < 3 and abs(g - b) < 3 and r + g + b < 90:
+        return "black"
+
+    # high red compared to other values
+    if r > g * 2 and r > b * 2 and r > 150:
+        return "red"
+
+    # high green compared to other values
+    if g > r * 2 and g > b * 2 and g > 150:
+        return "green"
+
+    # high blue compared to other values
+    if b > r * 2 and b > g * 2 and b > 150:
+        return "blue"
+
+    if r > 180 and g > 90 and b < 20:
+        return "orange"
+
+
+
+
+
+
+
 
