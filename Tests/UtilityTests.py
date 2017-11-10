@@ -10,6 +10,7 @@ class TestUtility(unittest.TestCase):
         image = Utility.screen_grab(save=True, filename="test.png")
         assert image is not None
         os.remove("test.png")
+
     def test_color0(self):
         pixel = [0,0,0]
         assert Utility.color(pixel) == "black"

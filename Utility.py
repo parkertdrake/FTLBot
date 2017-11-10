@@ -40,6 +40,12 @@ def save_screen(image, filename):
     cv2.imwrite(filename, cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
 
 """
+Shows np image onscreen
+"""
+def show_screen(image):
+    cv2.imshow('window',cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+
+"""
 Given image, get the text out of it as a string using tesseract OCR
 @:param image: image to be analyzed (as a np array)
 @:return string of the text in the image
