@@ -88,7 +88,6 @@ class Encounter:
         self.player_ship.engines.health = health
         self.player_ship.engines.power_level = power
 
-
     """
     Given image, counts the healthy power segments (powered or unpowered of a system), and the power level 
     This is its own function so I'm not repeating the same for loop for every system
@@ -114,17 +113,21 @@ class Encounter:
             row -= row_height # move to next segment
         return health, power
 
-
+    """
+    Get a nice printout of the player's ship status
+    """
+    def print_player_status(self):
+        print "Hull: ", self.player_ship.hull
+        print "Shield Power: ", self.player_ship.shields.power_level, ", Shield Health: ", game.player_ship.shields.health, \
+            ", Shield Bubbles: ", self.player_ship.shields.bubbles
+        print  "Engines Power: ", self.player_ship.engines.power_level, ", Engine Health: ", game.player_ship.engines.health
 
 
 Utility.countdown(5)
 game = Encounter()
 image = Utility.screen_grab(True, "Test4.png")
 game.update(image)
-print "Hull: ", game.player_ship.hull
-print "Shield Power: ", game.player_ship.shields.power_level, ", Shield Health: ", game.player_ship.shields.health, \
-    ", Shield Bubbles: ", game.player_ship.shields.bubbles
-print  "Engines Power: ", game.player_ship.engines.power_level, ", Engine Health: ", game.player_ship.engines.health
+game.print_player_status()
 
 
 
