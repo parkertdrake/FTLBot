@@ -84,9 +84,9 @@ Gauges the color of the pixel
 @returns: a lowercase string representing the color
 """
 def color(pixel):
-    r = pixel[0]
-    g = pixel[1]
-    b = pixel[2]
+    r = int(pixel[0])
+    g = int(pixel[1])
+    b = int(pixel[2])
 
     # pretty tight variance on the colors, and overall high pixel values
     if abs(r - g) < 3 and abs(r - b) < 3 and abs(g - b) < 3 and r + g + b > 715:
