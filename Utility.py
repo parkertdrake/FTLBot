@@ -117,6 +117,15 @@ def color(pixel):
     if r > 130 and g > 90 and b < 100:
         return "orange"
 
+"""
+Given a filename, load an image (primarily using this for testing purposes)
+@:param filename of image to load (include the extension)
+@:returns np array of the image
+"""
+def load_image_from_file(filename):
+    img = cv2.imread(filename)
+    return cv2.cvtColor(img, cv2.COLOR_BGR2RGB) # cv2 default color is brg (for some ungodly reason)
+
 
 
 
