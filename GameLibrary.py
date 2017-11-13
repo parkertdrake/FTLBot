@@ -9,6 +9,8 @@ Idea: Command objects as the interface between the game library and an outside s
 import Utility
 from PlayerShips import Kestrel
 from EnemyShips import *
+import cv2
+import time
 
 
 # a way I could do this is to store none of the information in "Ship" classes or anything like that.
@@ -35,6 +37,8 @@ class Encounter:
         self.player_ship = Kestrel()
         self.enemy_ship = PirateScout()
 
+
+    # Several functions to update status of player's ship
     """
     Wrapper function around all game component update calls
     @:param image: image of game screen    
@@ -48,9 +52,8 @@ class Encounter:
         self.update_player_oxygen(image)
 
         # enemy updates
-        self.update_enemy_health()
-        self.update_enemy_shield()
-    # Several functions to update status of player's ship
+        self.update_enemy_health(image)
+        self.update_enemy_shield(image)
 
     """
     Updates the kestrel's health
@@ -84,8 +87,8 @@ class Encounter:
         row = 219
         cols = [60, 105, 160, 205] # columns of shield bubble indicators onscreen
         for col in cols:
-            pixel = image[row, col]
-            if pixel[2]  > 200: # is it pretty blue?
+            pixel = image[row,col]
+            if Utility.color(pixel) == "blue":
                 shield_bubbles += 1
         self.player_ship.shields.bubbles = shield_bubbles
 
@@ -112,6 +115,7 @@ class Encounter:
         health, power = self.get_system_health_power(3, image, self.player_ship.oxygen.capacity)
         self.player_ship.oxygen.health = health
         self.player_ship.oxygen.power_level = power
+
 
     # Several functions to update status of enemy's ship
     """
@@ -148,10 +152,7 @@ class Encounter:
                 break # if this one's not blue the rest won't be either
         self.enemy_ship.shields = shield_level
 
-
-
-
-
+    # Some helper/utility functions
     """
     Given image, counts the healthy power segments (powered or unpowered of a system), and the power level 
     This is its own function so I'm not repeating the same for loop for every system
@@ -184,11 +185,11 @@ class Encounter:
     def print_player_status(self):
         print "Player Ship Status: "
         print "Hull: ", self.player_ship.hull
-        print "Shield Power: ", self.player_ship.shields.power_level, ", Shield Health: ", game.player_ship.shields.health, \
+        print "Shield Power: ", self.player_ship.shields.power_level, ", Shield Health: ", self.player_ship.shields.health, \
             ", Shield Bubbles: ", self.player_ship.shields.bubbles
-        print  "Engine Power: ", self.player_ship.engines.power_level, ", Engine Health: ", game.player_ship.engines.health
-        print  "Medbay Power: ", self.player_ship.medbay.power_level, ", Medbay Health: ", game.player_ship.medbay.health
-        print  "Oxygen Power: ", self.player_ship.oxygen.power_level, ", Oxygen Health: ", game.player_ship.oxygen.health
+        print  "Engine Power: ", self.player_ship.engines.power_level, ", Engine Health: ", self.player_ship.engines.health
+        print  "Medbay Power: ", self.player_ship.medbay.power_level, ", Medbay Health: ", self.player_ship.medbay.health
+        print  "Oxygen Power: ", self.player_ship.oxygen.power_level, ", Oxygen Health: ", self.player_ship.oxygen.health
 
     """
     Get a nice printout of the enemy's ship status
@@ -205,12 +206,6 @@ class Encounter:
         self.print_player_status()
         self.print_enemy_status()
 
-
-Utility.countdown(5)
-game = Encounter()
-image = Utility.screen_grab(True, "Test4.png")
-game.update(image)
-game.print_player_status()
 
 
 
