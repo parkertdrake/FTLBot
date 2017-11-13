@@ -1,5 +1,5 @@
 """
-A module to hold player ships.
+A module to hold player ships. For now, just the Kestrel.
 """
 
 import ShipComponents

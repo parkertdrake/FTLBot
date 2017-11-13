@@ -107,11 +107,11 @@ def color(pixel):
         return "red"
 
     # high green compared to other values
-    if g > r * 2 and g > b * 2 and g > 150:
+    if g > r * 1.5 and g > b * 1.5 and g > 150:
         return "green"
 
     # high blue compared to other values
-    if b > r * 2 and b > g * 2 and b > 150:
+    if b > r * 1.5 and b > g * 1.5 and b > 150:
         return "blue"
 
     if r > 130 and g > 90 and b < 100:
