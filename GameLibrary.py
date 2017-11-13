@@ -8,6 +8,7 @@ Idea: Command objects as the interface between the game library and an outside s
 
 import Utility
 from PlayerShips import Kestrel
+from EnemyShips import *
 
 
 # a way I could do this is to store none of the information in "Ship" classes or anything like that.
@@ -32,17 +33,24 @@ class Encounter:
     """
     def __init__(self):
         self.player_ship = Kestrel()
+        self.enemy_ship = PirateScout()
 
     """
     Wrapper function around all game component update calls
     @:param image: image of game screen    
     """
     def update(self, image):
+        #player updates
         self.update_player_health(image)
         self.update_player_shield(image)
         self.update_player_engine(image)
         self.update_player_medbay(image)
         self.update_player_oxygen(image)
+
+        # enemy updates
+        self.update_enemy_health()
+        self.update_enemy_shield()
+    # Several functions to update status of player's ship
 
     """
     Updates the kestrel's health
@@ -62,7 +70,6 @@ class Encounter:
             color = Utility.color(pixel)
             if color == "green" or color == "red" or color == "orange":
                 health += 1
-
         self.player_ship.hull = health
 
     """
@@ -106,6 +113,45 @@ class Encounter:
         self.player_ship.oxygen.health = health
         self.player_ship.oxygen.power_level = power
 
+    # Several functions to update status of enemy's ship
+    """
+    Update enemy shield
+    @:param image of game screen
+    """
+    def update_enemy_health(self, image):
+        health_cols = self.enemy_ship.health_cols
+        seg_width = 22 # width of health segments
+        health_row = self.enemy_ship.health_row
+        health = 0
+        for col in health_cols:
+            pixel = image[health_row, col]
+            if Utility.color(pixel) == "green":
+                health += 1
+            else:
+                break # if this one's not green, the rest won't be either
+            col += seg_width # next health segment
+        self.enemy_ship.hull = health
+
+    """
+    Update enemy shield
+    @:param image of game screen
+    """
+    def update_enemy_shield(self, image):
+        shield_row = self.enemy_ship.shield_row
+        shield_cols = self.enemy_ship.shield_cols
+        shield_level = 0
+        for col in shield_cols:
+            pixel = image[shield_row, col]
+            if Utility.color(pixel) == "blue":
+                shield_level += 1
+            else:
+                break # if this one's not blue the rest won't be either
+        self.enemy_ship.shields = shield_level
+
+
+
+
+
     """
     Given image, counts the healthy power segments (powered or unpowered of a system), and the power level 
     This is its own function so I'm not repeating the same for loop for every system
@@ -136,12 +182,29 @@ class Encounter:
     Get a nice printout of the player's ship status
     """
     def print_player_status(self):
+        print "Player Ship Status: "
         print "Hull: ", self.player_ship.hull
         print "Shield Power: ", self.player_ship.shields.power_level, ", Shield Health: ", game.player_ship.shields.health, \
             ", Shield Bubbles: ", self.player_ship.shields.bubbles
         print  "Engine Power: ", self.player_ship.engines.power_level, ", Engine Health: ", game.player_ship.engines.health
         print  "Medbay Power: ", self.player_ship.medbay.power_level, ", Medbay Health: ", game.player_ship.medbay.health
         print  "Oxygen Power: ", self.player_ship.oxygen.power_level, ", Oxygen Health: ", game.player_ship.oxygen.health
+
+    """
+    Get a nice printout of the enemy's ship status
+    """
+    def print_enemy_status(self):
+        print "Enemy Ship Status: "
+        print "Hull: ", self.enemy_ship.hull
+        print "Shield Level: ", self.enemy_ship.shields
+
+    """
+    Print the whole game status
+    """
+    def print_game_status(self):
+        self.print_player_status()
+        self.print_enemy_status()
+
 
 Utility.countdown(5)
 game = Encounter()
