@@ -6,6 +6,8 @@ Idea: Command objects as the interface between the game library and an outside s
 
 """
 
+# Test comment
+
 import Utility
 from PlayerShips import Kestrel
 from EnemyShips import *
