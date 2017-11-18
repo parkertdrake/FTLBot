@@ -1,6 +1,7 @@
 """
 This file holds all the classes and subclasses for ship components.
 Systems, subsystems, weapons, etc.
+All these classes do is hold information. They don't really
 """
 
 """
@@ -56,7 +57,6 @@ class WeaponSystem(System):
         self.power_level = power_level
         self.weapons = weapons
 
-
     """
     Install a new weapon onto the ship.
     """
@@ -64,9 +64,20 @@ class WeaponSystem(System):
         if len(self.weapons < 4):
             self.weapons.append(weapon)
 
+    """
+    Reposition weapons in the system
+    """
     def reorder_weapons(self, weapon_index1, weapon_index2):
-
         pass
+
+"""
+Class to hold weapons and their status
+charge, name, index in the system, power status, firing status
+"""
+class Weapon:
+    def __init__(self, name):
+        # TODO: add other parameters
+        self.name = name
 
 """
 Class for shield systems
@@ -159,9 +170,24 @@ class CrewMember:
         pass
 
 """
-Class to hold rooms on the ship. Might be pretty much just a pixel location. Later.
+Class to hold graph of rooms on the ship.
+Nodes are rooms, edges are doors.
+Room may have a system in it, might not.
 """
 class RoomSystem:
     #TODO: Implement room class
+
+    """
+    constructor - could possibly implement this with a json file encoding the room positions of various ships
+    Just use a name as an identifier and pull it from the file.
+    """
+    def __init__(self):
+        pass
+
+"""
+Class to holds rooms
+"""
+class Room:
+    """Constructor for rooms"""
     def __init__(self):
         pass

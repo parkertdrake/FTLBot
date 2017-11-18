@@ -9,8 +9,6 @@ Idea: Command objects as the interface between the game library and an outside s
 import Utility
 from PlayerShips import Kestrel
 from EnemyShips import *
-import cv2
-import time
 
 
 # a way I could do this is to store none of the information in "Ship" classes or anything like that.
@@ -43,7 +41,9 @@ class Encounter:
     Wrapper function around all game component update calls
     @:param image: image of game screen    
     """
-    def update(self, image):
+    def update(self, image=None):
+        if image is None:
+            image = Utility.screen_grab()
         #player updates
         self.update_player_health(image)
         self.update_player_shield(image)
@@ -162,9 +162,10 @@ class Encounter:
     @:returns tuple representing the (health, power) of a system. 
     """
     def get_system_health_power(self, index, image, capacity):
-        row = 1381 # intitial segment is at row 1381
+        row = 1381 # initial segment is at row 1381
         row_height = 16 # 16 pixels between segments
         #column is a tuple because I'm sampling 2 pixels in the segment. Both must be not red for the segment to be healthy.
+        # TODO: adjust these columns and change fault tolerance, when they take damage the screen shakes
         cols = [(170, 201), (242, 273), (314, 345), (386, 417), (458, 489)]
         health = 0
         power = 0
