@@ -116,7 +116,6 @@ class Encounter:
         self.player_ship.oxygen.health = health
         self.player_ship.oxygen.power_level = power
 
-
     # Several functions to update status of enemy's ship
     """
     Update enemy shield

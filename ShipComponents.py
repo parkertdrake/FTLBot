@@ -1,7 +1,7 @@
 """
 This file holds all the classes and subclasses for ship components.
 Systems, subsystems, weapons, etc.
-All these classes do is hold information. They don't really
+All these classes do is hold information.
 """
 
 """
@@ -98,20 +98,6 @@ class ShieldSystem(System):
         self.power_level = power_level
         self.bubbles = power_level/2
 
-    """
-    Change power of system to target level. Does bounds checking to ensure you can't overshoot capacity of the system.
-    Shield bubbles require 2 power to produce each - so an odd power level means you're wasting one power.
-    This function ensures you can't change the power level to an odd one. There's no point in half a bubble.
-    @:param target_level: desired power level
-    """
-    def change_power(self, target_level):
-        if target_level % 2 == 1:  # bubble check (no wasted power!)
-            target_level = target_level - 1
-        if target_level > min(self.capacity, self.health):
-            self.power_level = min(self.capacity, self.health)
-        else:
-            self.power_level = max(target_level, 0)
-
 """
 Class for engines
     Engine systems have no extra properties
@@ -154,7 +140,7 @@ class OxygenSystem(System):
 """
 Class for the crew
 Crew is made up of 0 - 6(7? Need to confirm max number of crew) members.
-This will be implemented later
+This class may not need to exist. 
 """
 class Crew:
     #TODO: implement crew class
@@ -162,7 +148,9 @@ class Crew:
         pass
 
 """
-Class to hold crewmembers, later.
+Class to hold crew members.
+A crew member is basically a name and a location. 
+Eventually I could track how good my crew members are at certain things, but that's later...
 """
 class CrewMember:
     # TODO: implement crew member class
@@ -179,15 +167,24 @@ class RoomSystem:
 
     """
     constructor - could possibly implement this with a json file encoding the room positions of various ships
-    Just use a name as an identifier and pull it from the file.
+    @:param ship_string: identifier for the the ship, all lowercase. See json file at Resources/Ships.json
     """
-    def __init__(self):
+    def __init__(self, ship_string):
         pass
 
 """
-Class to holds rooms
+Class for rooms. 
+A room will have a pixel location.
+A room may have one or more of the following: 
+    A system. 
+    One or more crew members. 
+    A tear in the hull. (Don't care for now)
+    An oxygen level. (Don't care for now)
 """
 class Room:
-    """Constructor for rooms"""
-    def __init__(self):
+    """
+    Constructor for rooms
+    @:param row
+    """
+    def __init__(self, row, col, System):
         pass

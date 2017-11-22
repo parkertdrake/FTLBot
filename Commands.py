@@ -2,6 +2,11 @@
 Module to holds Commands class and its subclasses.
 Long term plan, the game library will be able to generate a list of valid commands given a picture of the game state.
 It'll serve this list up to whatever agent is making decisions and provide an interface to execute it with.
+Design choice -
+    Executing a command DOES NOT alter the game state as stored in the encounter. All it does is send keystrokes.
+    You execute a single command. After which you must update the game through the encounter.
+        I want the encounter to derive its understanding of the game from the image.
+        This will prevent drift from what the image of the game is showing vs what it "should" be based on my commands
 """
 
 
@@ -34,7 +39,7 @@ class FiringCommand(Command):
 
     def execute(self):
         if self.executed:
-            return # a command can only be executed once
+            return # a command can only be executed once (can I make a function destroy its object?)
 
 
 
@@ -47,8 +52,15 @@ class FiringCommand(Command):
 Given a system (any system), power it to a certain level. Executing the command means routing the power.
 """
 class PowerCommand(Command):
-    def __init__(self):
-        pass
+    """
+    Constructor
+    @:param system: system to work on
+    @:param power_level: target power level of system
+    """
+
+    def __init__(self, system, power_level):
+        self.system = system
+        self.power_level = power_level
 
 """
 Given a crew member and a room, send them to the room.
