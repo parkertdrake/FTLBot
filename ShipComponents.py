@@ -56,6 +56,7 @@ class WeaponSystem(System):
         self.health = health
         self.power_level = power_level
         self.weapons = weapons
+        self.key = "w"
 
     """
     Install a new weapon onto the ship.
@@ -99,6 +100,7 @@ class ShieldSystem(System):
         self.health = health
         self.power_level = power_level
         self.bubbles = power_level/2
+        self.key = "a"
 
 """
 Class for engines
@@ -109,6 +111,7 @@ class EngineSystem(System):
         self.capacity = capacity
         self.health = health
         self.power_level = power_level
+        self.key = "s"
 
 """
 Class for MedBays
@@ -126,6 +129,7 @@ class MedBaySystem(System):
         self.capacity = capacity
         self.health = health
         self.power_level = power_level
+        self.key = "d"
 
 """
 Class for Oxygen Systems
@@ -137,6 +141,7 @@ class OxygenSystem(System):
         self.capacity = capacity
         self.health = health
         self.power_level = power_level
+        self.key = "f"
 
 
 """
