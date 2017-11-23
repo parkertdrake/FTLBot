@@ -65,9 +65,10 @@ def countdown(seconds):
         print(i + 1)
         time.sleep(1)
 
+# some input utility functions
 """
 taps the key specified
-@:param key key to be pushed
+@:param key key to be pushed as string 
 """
 def tap_key(key):
     pyautogui.press(key)

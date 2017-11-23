@@ -1,5 +1,5 @@
 """
-Module to holds Commands class and its subclasses.
+Module to hold the Commands class and its subclasses.
 Long term plan, the game library will be able to generate a list of valid commands given a picture of the game state.
 It'll serve this list up to whatever agent is making decisions and provide an interface to execute it with.
 Design choice -
@@ -9,6 +9,8 @@ Design choice -
         This will prevent drift from what the image of the game is showing vs what it "should" be based on my commands
 """
 
+
+import ShipComponents
 
 """
 Commands class, what kind of member variables?
@@ -57,10 +59,22 @@ class PowerCommand(Command):
     @:param system: system to work on
     @:param power_level: target power level of system
     """
-
     def __init__(self, system, power_level):
         self.system = system
         self.power_level = power_level
+
+        #need to figure out which key we need to push, a for shield, etc.
+
+        if type(system) == ShipComponents.ShieldSystem():
+            key = "a"
+        elif type(system) == ShipComponents.EngineSystem():
+            key = "s"
+        elif type(system) == ShipComponents.MedBaySystem():
+            key = "d"
+        elif type(system) == ShipComponents.OxygenSystem():
+            key = "f"
+        elif type(system) == ShipComponents.WeaponSystem():
+            key = "w"
 
 """
 Given a crew member and a room, send them to the room.

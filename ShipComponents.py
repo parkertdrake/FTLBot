@@ -75,9 +75,11 @@ Class to hold weapons and their status
 charge, name, index in the system, power status, firing status
 """
 class Weapon:
-    def __init__(self, name):
+    def __init__(self, name, index):
         # TODO: add other parameters
         self.name = name
+        self.index = index
+        # TODO: use name to look up the weapons properties
 
 """
 Class for shield systems
