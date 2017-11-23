@@ -11,6 +11,8 @@ Design choice -
 
 
 import ShipComponents
+import pyautogui
+
 
 """
 Commands class, what kind of member variables?
@@ -59,22 +61,32 @@ class PowerCommand(Command):
     @:param system: system to work on
     @:param power_level: target power level of system
     """
-    def __init__(self, system, power_level):
+    def __init__(self, system, target_power_level):
         self.system = system
-        self.power_level = power_level
+        self.power_level = target_power_level
 
-        #need to figure out which key we need to push, a for shield, etc.
 
-        if type(system) == ShipComponents.ShieldSystem():
-            key = "a"
-        elif type(system) == ShipComponents.EngineSystem():
-            key = "s"
-        elif type(system) == ShipComponents.MedBaySystem():
-            key = "d"
-        elif type(system) == ShipComponents.OxygenSystem():
-            key = "f"
-        elif type(system) == ShipComponents.WeaponSystem():
-            key = "w"
+    """
+    Execute the command.
+    """
+    def execute(self):
+        # need to figure out which key we need to push, a for shield, etc.
+        system = self.system
+        target_power_level = self.power_level
+
+
+        current_power = system.power_level
+        diff = abs(current_power - target_power_level)
+        if current_power > target_power_level:
+            print ("Decreasing, holding shift")
+            pyautogui.keyDown("shift")
+
+        if system.key == "a": # this is a shield system
+            diff = diff / 2 # only operates in entire shield bubbles
+        for i in range(diff):
+            print system.key
+            pyautogui.press(system.key)
+        pyautogui.keyUp("shift")
 
 """
 Given a crew member and a room, send them to the room.
