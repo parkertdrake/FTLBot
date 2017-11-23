@@ -9,10 +9,8 @@ Design choice -
         This will prevent drift from what the image of the game is showing vs what it "should" be based on my commands
 """
 
-
 import ShipComponents
 import pyautogui
-
 
 """
 Commands class, what kind of member variables?
@@ -21,9 +19,6 @@ What do commands have in common? Not much, might not need a super class
 class Command:
     def __init__(self):
         pass
-
-
-
 
 """
 Targeting commands.
@@ -44,13 +39,6 @@ class FiringCommand(Command):
     def execute(self):
         if self.executed:
             return # a command can only be executed once (can I make a function destroy its object?)
-
-
-
-
-
-
-
 
 """
 Given a system (any system), power it to a certain level. Executing the command means routing the power.
