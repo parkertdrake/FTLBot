@@ -181,7 +181,6 @@ class RoomSystem:
     def __init__(self, shields, engines, medbay, oxygen, weapons):
         self.rooms = [] # easily iterate over rooms
         self.doors = [] # easily iterate over doors
-        self.matrix = [] # easily identify edges between rooms and doors
 
         #going to generate all the rooms first, then the doors, then the matrix. All hardcoded to the Kestrel.
         # first the "Space" room at index 0
@@ -225,11 +224,61 @@ class RoomSystem:
         for i in range(22):
             self.doors.append(Door(door_locations[i], False))
 
-        # now we create the adjacency matrix for the graph
+        # now we create the adjacency matrix for the graph, initialize 17 x 17 of None
+        self.matrix = []
+        for i in range(17):
+            mat_row = []
+            for j in range(17):
+                mat_row.append(None)
+            self.matrix.append(mat_row)
 
+        # Now need to install all the doors, one at a time.
+        # There are 22 doors, so 44 edges are needed (all bidirectional)
 
-
-
+        self.matrix[0][6] = self.doors[0]
+        self.matrix[6][0] = self.doors[0]
+        self.matrix[1][6] = self.doors[1]
+        self.matrix[6][1] = self.doors[1]
+        self.matrix[1][2] = self.doors[2]
+        self.matrix[2][1] = self.doors[2]
+        self.matrix[2][7] = self.doors[3]
+        self.matrix[7][2] = self.doors[3]
+        self.matrix[7][3] = self.doors[4]
+        self.matrix[3][7] = self.doors[4]
+        self.matrix[1][8] = self.doors[5]
+        self.matrix[8][1] = self.doors[5]
+        self.matrix[8][9] = self.doors[6]
+        self.matrix[9][8] = self.doors[6]
+        self.matrix[9][3] = self.doors[7]
+        self.matrix[3][9] = self.doors[7]
+        self.matrix[3][11] = self.doors[8]
+        self.matrix[11][3] = self.doors[8]
+        self.matrix[3][12] = self.doors[9]
+        self.matrix[12][3] = self.doors[9]
+        self.matrix[0][10] = self.doors[10]
+        self.matrix[10][0] = self.doors[10]
+        self.matrix[10][11] = self.doors[11]
+        self.matrix[11][10] = self.doors[11]
+        self.matrix[11][5] = self.doors[12]
+        self.matrix[5][11] = self.doors[12]
+        self.matrix[0][13] = self.doors[13]
+        self.matrix[13][0] = self.doors[13]
+        self.matrix[12][13] = self.doors[14]
+        self.matrix[13][12] = self.doors[14]
+        self.matrix[4][12] = self.doors[15]
+        self.matrix[12][4] = self.doors[15]
+        self.matrix[5][4] = self.doors[16]
+        self.matrix[4][5] = self.doors[16]
+        self.matrix[5][14] = self.doors[17]
+        self.matrix[14][5] = self.doors[17]
+        self.matrix[4][15] = self.doors[18]
+        self.matrix[15][4] = self.doors[18]
+        self.matrix[14][16] = self.doors[19]
+        self.matrix[16][14] = self.doors[19]
+        self.matrix[15][16] = self.doors[20]
+        self.matrix[16][15] = self.doors[20]
+        self.matrix[16][17] = self.doors[21]
+        self.matrix[17][16] = self.doors[21]
 
 """
 Class for rooms. 

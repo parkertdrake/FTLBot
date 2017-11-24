@@ -11,8 +11,6 @@ pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files (x86)/Tesseract-OCR/te
 
 
 
-Utility.countdown(5)
-enc = Encounter()
-enc.update()
-power_command = PowerCommand(enc.player_ship.engines, 0)
-power_command.execute()
+for i in range(22):
+    print "self.matrix[x][y] = self.doors[" + str(i) + "]"
+    print "self.matrix[y][x] = self.doors[" + str(i) + "]"
