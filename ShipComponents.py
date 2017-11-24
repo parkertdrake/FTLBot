@@ -213,6 +213,19 @@ class RoomSystem:
             self.rooms.append(Room(non_major_room_locations[i], None, i + 6))
 
         # now we need to do doors.
+        # if there are multiple doors between the same two rooms, I'm only going to take the upper left one.
+        # using that scheme, there are 22 doors on the Kestrel I care about
+        door_locations = [
+            (647, 397), (647, 468), (614, 573), (578, 607), (614, 711),
+            (753, 572), (789, 609), (753, 713), (649, 819), (720, 819),
+            (474, 852), (545, 924), (578, 958), (894, 854), (825, 924),
+            (789, 959), (684, 993), (649,1098), (720,1098), (649,1239),
+            (720,1238), (720, 1377)
+        ]
+        for i in range(22):
+            self.doors.append(Door(door_locations[i], False))
+
+        # now we create the adjacency matrix for the graph
 
 
 
