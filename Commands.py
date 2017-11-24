@@ -11,6 +11,7 @@ Design choice -
 
 import ShipComponents
 import pyautogui
+import Utility
 
 """
 Commands class, what kind of member variables?
@@ -75,6 +76,26 @@ class PowerCommand(Command):
             print system.key
             pyautogui.press(system.key)
         pyautogui.keyUp("shift")
+
+"""
+Commands to open and close doors
+"""
+class DoorCommand(Command):
+    """
+    Constructor
+    @:param door to work on
+    @:param want_open: true if you want the door open, false if you want it closed
+    """
+    def __init__(self, door, want_open):
+        self.door = door
+        self.target_state = want_open
+
+    def execute(self):
+        if self.door.is_open == self.target_state:
+            return # door is already in the target state
+        else:
+            Utility.click_screen(self.door.location[0], self.door.location[1])
+            self.door.is_open = self.target_state
 
 """
 Given a crew member and a room, send them to the room.
