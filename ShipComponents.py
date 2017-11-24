@@ -191,7 +191,25 @@ A room may have one or more of the following:
 class Room:
     """
     Constructor for rooms
-    @:param row
+    @:param location of room (row, col)
+    @:param system: system attached to the room
+    @:param index: index of room (just for the matrix in the system class) 0 will be for the "space room"
     """
-    def __init__(self, row, col, System):
-        pass
+    def __init__(self, location, system, index):
+        self.location = location
+        self.system = system
+        self.index = index
+
+"""
+Class for doors
+just a location and a flag for open/closed
+"""
+class Door:
+    """
+    Constructor for rooms
+    @:param location : tuple of pixel location of door (row, col)
+    @:param open: boolean, true if door is open, false if closed
+    """
+    def __init__(self, location, is_open):
+        self.location = location
+        self.is_open = is_open
