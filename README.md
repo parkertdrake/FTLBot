@@ -1,4 +1,4 @@
-### FTL Bot Readme
+### FTL Bot 
 
 A bot to play FTL, 2 parts.
 
