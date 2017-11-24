@@ -143,7 +143,6 @@ class OxygenSystem(System):
         self.power_level = power_level
         self.key = "f"
 
-
 """
 Class for the crew
 Crew is made up of 0 - 6(7? Need to confirm max number of crew) members.
@@ -170,14 +169,48 @@ Nodes are rooms, edges are doors.
 Room may have a system in it, might not.
 """
 class RoomSystem:
-    #TODO: Implement room class
-
     """
     constructor - could possibly implement this with a json file encoding the room positions of various ships
-    @:param ship_string: identifier for the the ship, all lowercase. See json file at Resources/Ships.json
+    for now its hardcoded for the Kestrel only
+    @:param shields: shields system for this instance of the Kestrel
+    @:param engines: engines system for this instance of the Kestrel
+    @:param medbay: medbay system for this instance of the Kestrel
+    @:param oxygen: oxygen system for this instance of the Kestrel
+    @:param weapons: weapons system for this instance of the Kestrel
     """
-    def __init__(self, ship_string):
-        pass
+    def __init__(self, shields, engines, medbay, oxygen, weapons):
+        self.rooms = [] # easily iterate over rooms
+        self.doors = [] # easily iterate over doors
+        self.matrix = [None] # easily identify edges between rooms and doors
+
+        #going to generate all the rooms first, then the doors, then the matrix. All hardcoded to the Kestrel.
+        # first the "Space" room at index 0
+        space_room = Room((-1,-1), None, 0)
+        self.rooms.append(space_room)
+        # The Kestrel has 17 rooms. 12 do not contain major systems.
+        major_room_locations = [
+            (686 ,539),  # row col for engine room
+            (586, 539),  # row col for oxygen room
+            (686, 749),  # row col for weapons room
+            (614, 1027), # row col for medbay room
+            (756, 1027), # row col for shields room
+        ]
+        self.rooms.append((major_room_locations[0], engines, 1))  # engine room constucted
+        self.rooms.append((major_room_locations[1], oxygen, 2))   # oxygen room constucted
+        self.rooms.append((major_room_locations[2], weapons, 3))  # weapons room constucted
+        self.rooms.append((major_room_locations[3], medbay, 4))   # medbay room constucted
+        self.rooms.append((major_room_locations[4], shields, 5))  # shields room constucted
+
+
+        non_major_room_locations =[
+            ()
+
+
+
+        ]
+
+
+
 
 """
 Class for rooms. 
