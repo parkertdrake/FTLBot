@@ -78,6 +78,24 @@ class PowerCommand(Command):
         pyautogui.keyUp("shift")
 
 """
+Commands to vent rooms to space
+"""
+class VentCommand(Command):
+    """
+    constructor
+    @:param room to be vented
+    """
+    def __init__(self, room):
+        self.room = room
+        #TODO: implement BFS/DFS search to find the path to the space node
+
+    """
+    Vent the room to space
+    """
+    def execute(self):
+        pass
+
+"""
 Commands to open and close doors
 """
 class DoorCommand(Command):
@@ -90,12 +108,14 @@ class DoorCommand(Command):
         self.door = door
         self.target_state = want_open
 
+    """
+    Open the door
+    """
     def execute(self):
         if self.door.is_open == self.target_state:
             return # door is already in the target state
         else:
             Utility.click_screen(self.door.location[0], self.door.location[1])
-            self.door.is_open = self.target_state
 
 """
 Given a crew member and a room, send them to the room.
