@@ -181,13 +181,14 @@ class RoomSystem:
     def __init__(self, shields, engines, medbay, oxygen, weapons):
         self.rooms = [] # easily iterate over rooms
         self.doors = [] # easily iterate over doors
-        self.matrix = [None] # easily identify edges between rooms and doors
+        self.matrix = [] # easily identify edges between rooms and doors
 
         #going to generate all the rooms first, then the doors, then the matrix. All hardcoded to the Kestrel.
         # first the "Space" room at index 0
         space_room = Room((-1,-1), None, 0)
         self.rooms.append(space_room)
-        # The Kestrel has 17 rooms. 12 do not contain major systems.
+        # The Kestrel has 17 rooms total
+        # 5 major system rooms
         major_room_locations = [
             (686 ,539),  # row col for engine room
             (586, 539),  # row col for oxygen room
@@ -195,19 +196,24 @@ class RoomSystem:
             (614, 1027), # row col for medbay room
             (756, 1027), # row col for shields room
         ]
-        self.rooms.append((major_room_locations[0], engines, 1))  # engine room constucted
-        self.rooms.append((major_room_locations[1], oxygen, 2))   # oxygen room constucted
-        self.rooms.append((major_room_locations[2], weapons, 3))  # weapons room constucted
-        self.rooms.append((major_room_locations[3], medbay, 4))   # medbay room constucted
-        self.rooms.append((major_room_locations[4], shields, 5))  # shields room constucted
+        self.rooms.append((major_room_locations[0], engines, 1))  # engine room constructed
+        self.rooms.append((major_room_locations[1], oxygen, 2))   # oxygen room constructed
+        self.rooms.append((major_room_locations[2], weapons, 3))  # weapons room constructed
+        self.rooms.append((major_room_locations[3], medbay, 4))   # medbay room constructed
+        self.rooms.append((major_room_locations[4], shields, 5))  # shields room constructed
 
-
+        # 12 do not contain major systems.
         non_major_room_locations =[
-            ()
-
-
-
+            (683, 433), (579, 684), (785, 535),(793, 675),
+            (505, 888), (618, 888),(755, 888), (852, 888),
+            (650, 1168), (722, 1168), (685, 1307), (685, 1414)
         ]
+
+        for i in range(12):
+            self.rooms.append(Room(non_major_room_locations[i], None, i + 6))
+
+        # now we need to do doors.
+
 
 
 
