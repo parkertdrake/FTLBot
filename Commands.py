@@ -4,9 +4,10 @@ Long term plan, the game library will be able to generate a list of valid comman
 It'll serve this list up to whatever agent is making decisions and provide an interface to execute it with.
 Design choice -
     Executing a command DOES NOT alter the game state as stored in the encounter. All it does is send keystrokes.
-    You execute a single command. After which you must update the game through the encounter.
+    You execute a single command. After which you MUST update the game through the encounter.
         I want the encounter to derive its understanding of the game from the image.
         This will prevent drift from what the image of the game is showing vs what it "should" be based on my commands
+    This is going to cause a hit to performance. But 5-10 commands a second is still pretty good, and I can change this later.
 """
 
 import ShipComponents
