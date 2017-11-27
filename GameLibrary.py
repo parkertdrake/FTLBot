@@ -52,8 +52,8 @@ class Encounter:
         self.update_player_oxygen(image)
 
         # enemy updates
-        self.update_enemy_health(image)
-        self.update_enemy_shield(image)
+        #self.update_enemy_health(image)
+        #self.update_enemy_shield(image)
 
     """
     Updates the kestrel's health
@@ -91,7 +91,7 @@ class Encounter:
     Updates player engine status
     """
     def update_player_engine(self, image):
-        health, power = self.get_system_health_power(1, image, self.player_ship.engines.capacity)
+        health, power = self.get_system_health_power(image, Locations.ENGINE_SEGMENTS)
         self.player_ship.engines.health = health
         self.player_ship.engines.power_level = power
 
@@ -99,7 +99,7 @@ class Encounter:
     Updates the players medbay
     """
     def update_player_medbay(self, image):
-        health, power = self.get_system_health_power(2, image, self.player_ship.medbay.capacity)
+        health, power = self.get_system_health_power(image, Locations.MEDBAY_SEGMENTS)
         self.player_ship.medbay.health = health
         self.player_ship.medbay.power_level = power
 
@@ -107,7 +107,7 @@ class Encounter:
     Updates the players oxygen system
     """
     def update_player_oxygen(self, image):
-        health, power = self.get_system_health_power(3, image, self.player_ship.oxygen.capacity)
+        health, power = self.get_system_health_power(image, Locations.OXYGEN_SEGMENTS)
         self.player_ship.oxygen.health = health
         self.player_ship.oxygen.power_level = power
 
@@ -189,6 +189,7 @@ class Encounter:
             average_pixel = [x / 10 for x in average_pixel]
             # now look at the color of the average pixel
             color = Utility.color(average_pixel)
+            print color
             if (color == "green"):
                 health += 1
                 power += 1
