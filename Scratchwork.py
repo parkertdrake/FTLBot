@@ -13,6 +13,7 @@ Utility.countdown(5)
 enc = Encounter()
 image = Utility.screen_grab()
 enc.update(image)
+enc.identify_enemy(image)
 enc.print_player_status()
 
 
