@@ -165,3 +165,8 @@ DOORS = [
             (789, 959), (684, 993), (649,1098), (720,1098), (649,1239),
             (720,1238), (720, 1377)
         ]
+
+
+# enemy ship title (row, col, width, height)
+# this gives the top right corner, then width going to the left and height going down.
+ENEMY_TITLE = [223, 2515, 285, 28]
