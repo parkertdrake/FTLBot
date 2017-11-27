@@ -4,6 +4,9 @@ Systems, subsystems, weapons, etc.
 All these classes do is hold information.
 """
 
+import Utility
+import Locations
+
 """
 System parent class, we can decompose systems like this...
     Every system has a health level
@@ -188,13 +191,8 @@ class RoomSystem:
         self.rooms.append(space_room)
         # The Kestrel has 17 rooms total
         # 5 major system rooms
-        major_room_locations = [
-            (686 ,539),  # row col for engine room
-            (586, 539),  # row col for oxygen room
-            (686, 749),  # row col for weapons room
-            (614, 1027), # row col for medbay room
-            (756, 1027), # row col for shields room
-        ]
+        major_room_locations = Locations.ROOMS[0:5]
+
         self.rooms.append((major_room_locations[0], engines, 1))  # engine room constructed
         self.rooms.append((major_room_locations[1], oxygen, 2))   # oxygen room constructed
         self.rooms.append((major_room_locations[2], weapons, 3))  # weapons room constructed
@@ -202,11 +200,7 @@ class RoomSystem:
         self.rooms.append((major_room_locations[4], shields, 5))  # shields room constructed
 
         # 12 do not contain major systems.
-        non_major_room_locations =[
-            (683, 433), (579, 684), (785, 535),(793, 675),
-            (505, 888), (618, 888),(755, 888), (852, 888),
-            (650, 1168), (722, 1168), (685, 1307), (685, 1414)
-        ]
+        non_major_room_locations = Locations.ROOMS[5:]
 
         for i in range(12):
             self.rooms.append(Room(non_major_room_locations[i], None, i + 6))
@@ -214,13 +208,7 @@ class RoomSystem:
         # now we need to do doors.
         # if there are multiple doors between the same two rooms, I'm only going to take the upper left one.
         # using that scheme, there are 22 doors on the Kestrel I care about
-        door_locations = [
-            (647, 397), (647, 468), (614, 573), (578, 607), (614, 711),
-            (753, 572), (789, 609), (753, 713), (649, 819), (720, 819),
-            (474, 852), (545, 924), (578, 958), (894, 854), (825, 924),
-            (789, 959), (684, 993), (649,1098), (720,1098), (649,1239),
-            (720,1238), (720, 1377)
-        ]
+        door_locations = Locations.DOORS
         for i in range(22):
             self.doors.append(Door(door_locations[i], False))
 

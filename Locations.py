@@ -135,7 +135,6 @@ WEAPON_SEGMENTS = [
 (1414, 484) ]
 ]
 
-
 # shield bubbles
 PLAYER_BUBBLES = [
 (228, 52)
@@ -143,10 +142,26 @@ PLAYER_BUBBLES = [
 , (228, 144)
 , (228, 190)
 ]
-ENEMY_BUBBLES =
+ENEMY_BUBBLES = None
 
 # rooms on the Kestrel
-ROOM_LOCATIONS =
+ROOMS = [
+            (686 ,539),  # row col for engine room
+            (586, 539),  # row col for oxygen room
+            (686, 749),  # row col for weapons room
+            (614, 1027), # row col for medbay room
+            (756, 1027), # row col for shields room
+            #12 non essential rooms here
+            (683, 433), (579, 684), (785, 535),(793, 675),
+            (505, 888), (618, 888),(755, 888), (852, 888),
+            (650, 1168), (722, 1168), (685, 1307), (685, 1414)
+        ]
 
 # doors on the Kestrel
-DOOR_LOCATIONS =
+DOORS = [
+            (647, 397), (647, 468), (614, 573), (578, 607), (614, 711),
+            (753, 572), (789, 609), (753, 713), (649, 819), (720, 819),
+            (474, 852), (545, 924), (578, 958), (894, 854), (825, 924),
+            (789, 959), (684, 993), (649,1098), (720,1098), (649,1239),
+            (720,1238), (720, 1377)
+        ]
