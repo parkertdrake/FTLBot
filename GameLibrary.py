@@ -116,6 +116,30 @@ class Encounter:
         self.player_ship.oxygen.health = health
         self.player_ship.oxygen.power_level = power
 
+    """
+    Update the players weapon system
+    @:param image of game screen 
+    """
+    def update_player_weapons(self, image):
+        #TODO implement
+        pass
+
+    """
+    Scan the doors on the image and update the open flags
+    @:param image of game screen
+    """
+    def update_player_doors(self, image):
+        #TODO implement
+        doors = self.player_ship.rooms.doors
+        for door in doors:
+            location = door.location
+            pixel = image[location[0]][location[1]]
+            # need to check color of open vs closed?
+
+
+
+
+
     # Several functions to update status of enemy's ship
     """
     Update enemy shield
@@ -151,7 +175,7 @@ class Encounter:
                 break # if this one's not blue the rest won't be either
         self.enemy_ship.shields = shield_level
 
-    # Some helper/utility functions
+    # Some helper functions
     """
     Given image, counts the healthy power segments (powered or unpowered of a system), and the power level 
     This is its own function so I'm not repeating the same for loop for every system
@@ -161,7 +185,7 @@ class Encounter:
     @:returns tuple representing the (health, power) of a system. 
     """
     def get_system_health_power(self, index, image, capacity):
-        row = 1381 # initial segment is at row 1381
+        row = 1385 # initial segment is at row 1381
         row_height = 16 # 16 pixels between segments
         #column is a tuple because I'm sampling 2 pixels in the segment. Both must be not red for the segment to be healthy.
         # TODO: adjust these columns and change fault tolerance, when they take damage the screen shakes
@@ -171,7 +195,7 @@ class Encounter:
         for i in range(capacity):
             pixel_1 = image[row][cols[index][0]]
             pixel_2 = image[row][cols[index][1]]
-            #print Utility.color(pixel_1), Utility.color(pixel_2)
+            print Utility.color(pixel_1), Utility.color(pixel_2)
             if Utility.color(pixel_1) != "red" and Utility.color(pixel_2) != "red":
                 health += 1
             if Utility.color(pixel_1) == "green" and Utility.color(pixel_2) == "green":
