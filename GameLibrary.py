@@ -63,7 +63,8 @@ class Encounter:
         hull_segments = Locations.PLAYER_HULL_SEGMENTS
         for segment in hull_segments:
             pixel = image[segment[0]][segment[1]]
-            if Utility.color(pixel) != "black":
+            color = Utility.color(pixel)
+            if color == "green" or color == "red" or color == "yellow" or color == "orange":
                 health += 1
             else:
                 break
@@ -209,7 +210,6 @@ class Encounter:
             average_pixel = [x / 10 for x in average_pixel]
             # now look at the color of the average pixel
             color = Utility.color(average_pixel)
-            print color
             if (color == "green"):
                 health += 1
                 power += 1
