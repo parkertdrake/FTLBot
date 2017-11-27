@@ -176,6 +176,27 @@ class Encounter:
     @:returns tuple representing the (health, power) of a system. 
     """
     def get_system_health_power(self, image, segments):
+        health = 0
+        power = 0
+        for segment in segments:
+            #analyze the segment by looking at all 10 of the sample pixels in it
+            average_pixel = [0, 0, 0]
+            for i in range(10):
+                pixel = image[segment[i]] # grab the sample pixel
+                average_pixel[0] += pixel[0]
+                average_pixel[1] += pixel[1]
+                average_pixel[2] += pixel[2]
+            average_pixel = [x / 10 for x in average_pixel]
+            # now look at the color of the average pixel
+            color = Utility.color(average_pixel)
+            if (color == "green"):
+                health += 1
+                power += 1
+            elif (color == "white"):
+                health += 1
+            else:
+                break # neither healthy nor powered, we've hit our limit
+        return health, power
 
 
     """
