@@ -35,7 +35,6 @@ class Encounter:
         self.player_ship = Kestrel()
         self.enemy_ship = PirateScout()
 
-
     # Several functions to update status of player's ship
     """
     Wrapper function around all game component update calls
@@ -64,7 +63,7 @@ class Encounter:
         hull_segments = Locations.PLAYER_HULL_SEGMENTS
         for segment in hull_segments:
             pixel = image[segment[0]][segment[1]]
-            if Utility.color(pixel) == "green":
+            if Utility.color(pixel) != "black":
                 health += 1
             else:
                 break
@@ -133,6 +132,27 @@ class Encounter:
 
 
     # Several functions to update status of enemy's ship
+
+    """
+    identifies enemy ship type using OCR
+    @:param image
+    @:returns enemy ship title (string)
+    """
+    def identify_enemy(self, image):
+        # enemy ship title (row, col, width, height)
+        # this gives the top right corner, then width going to the left and height going down.
+
+        title_location = Locations.ENEMY_TITLE
+        width = title_location[2]
+        height = title_location[3]
+        top_row, left_col = title_location[0], title_location[1] - width
+        bottom_row, right_col = top_row + height, left_col + width
+
+        sub_image = image[top_row:bottom_row, left_col:right_col]
+        text = Utility.image_text(sub_image)
+        return text
+
+
     """
     Update enemy shield
     @:param image of game screen
