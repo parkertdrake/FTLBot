@@ -69,8 +69,8 @@ def generate_system_segments(starting_row, starting_col, row_height, col_width, 
         print system + " = ["
         row = starting_row
         num_segments = segments[i]
-        print "[",
         for j in range (num_segments):
+            print "[",
             #generate 10 pixel locations across the segment
             pix_width = seg_width / 10
             pix_row = row
@@ -81,11 +81,29 @@ def generate_system_segments(starting_row, starting_col, row_height, col_width, 
                     print ","
                 pix_col += pix_width
             row -= row_height
-            print "], "
-        print "]"
+            print "] "
+            if j < num_segments - 1:
+                print ", "
         col += col_width
+        print "]"
+
+"""
+generate location list of player's shield bubbles
+@:param row of shield bubbles
+@:param starting_col of shield bubbles
+@:param col_width distance between shield bubble segments
+"""
+def generate_player_bubble_segments(row, starting_col, col_width):
+    num_segments = 4 # always up to 4 shield bubbles
+    col = starting_col
+    print "PLAYER_BUBBLES = ["
+    for i in range(num_segments):
+        print "(" + str(row) + ", " + str(col) + ")"
+        if i < num_segments - 1:
+            print ",",
+        col += col_width
+    print "]"
 
 
-
-
-generate_system_segments(1430, 165, 16, 73, 100, 30)
+#generate_system_segments(1430, 165, 16, 73, 100, 30)
+generate_player_bubble_segments(228, 52, 46)

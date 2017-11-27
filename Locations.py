@@ -137,7 +137,12 @@ WEAPON_SEGMENTS = [
 
 
 # shield bubbles
-PLAYER_BUBBLES =
+PLAYER_BUBBLES = [
+(228, 52)
+, (228, 98)
+, (228, 144)
+, (228, 190)
+]
 ENEMY_BUBBLES =
 
 # rooms on the Kestrel
