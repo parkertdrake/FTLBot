@@ -224,7 +224,7 @@ class Encounter:
         print "Shield Level: ", self.enemy_ship.shields
 
     """
-    Print the whole game status
+    Print the status of both players
     """
     def print_game_status(self):
         self.print_player_status()
