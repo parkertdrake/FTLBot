@@ -9,7 +9,7 @@ Idea: Command objects as the interface between the game library and an outside s
 import Utility
 from PlayerShips import Kestrel
 from EnemyShips import *
-
+import Locations
 
 # a way I could do this is to store none of the information in "Ship" classes or anything like that.
 # the only source of truth is the current image of the game state.
@@ -61,18 +61,13 @@ class Encounter:
     """
     def update_player_health(self, image):
         health = 0  # 0 to start, increment with every green segment found
-        pixel_row = 125  # y position of the hull health bar
-
-        #column of health segments
-        pixel_columns = [37, 57, 87, 110, 137, 152, 182, 199, 224, 256,
-                        285, 299, 331, 350, 371, 401, 419, 442, 472, 498,
-                        519, 541, 562, 589, 614, 640, 655, 686, 711, 730]
-        for col in pixel_columns:
-            pixel = image[pixel_row, col]
-            # print x, y, pixel
-            color = Utility.color(pixel)
-            if color == "green" or color == "red" or color == "orange":
+        hull_segments = Locations.PLAYER_HULL_SEGMENTS
+        for segment in hull_segments:
+            pixel = image[segment[0]][segment[1]]
+            if Utility.color(pixel) == "green":
                 health += 1
+            else:
+                break
         self.player_ship.hull = health
 
     """
@@ -80,14 +75,14 @@ class Encounter:
     @:param image of game screen
     """
     def update_player_shield(self, image):
+
         self.player_ship.shields.health, self.player_ship.shields.power_level = \
-            self.get_system_health_power(0, image, self.player_ship.shields.capacity)
+            self.get_system_health_power(image, Locations.SHIELD_SEGMENTS)
         #now count the bubbles. Do this separately! It might be fully powered, but we don't know if the shields have taken a hit.
         shield_bubbles = 0
-        row = 219
-        cols = [60, 105, 160, 205] # columns of shield bubble indicators onscreen
-        for col in cols:
-            pixel = image[row,col]
+        bubble_locations = Locations.PLAYER_BUBBLES
+        for bubble in bubble_locations:
+            pixel = image[bubble[0]][bubble[1]]
             if Utility.color(pixel) == "blue":
                 shield_bubbles += 1
         self.player_ship.shields.bubbles = shield_bubbles
@@ -137,9 +132,6 @@ class Encounter:
             # need to check color of open vs closed?
 
 
-
-
-
     # Several functions to update status of enemy's ship
     """
     Update enemy shield
@@ -180,28 +172,11 @@ class Encounter:
     Given image, counts the healthy power segments (powered or unpowered of a system), and the power level 
     This is its own function so I'm not repeating the same for loop for every system
     @:param image: image of the game screen
-    @:param index: index of system on the screen (shields is 0, engines is 1, etc etc.)
-    @:param capacity: max capacity of the system. Health can never exceed this number.
+    @:param segments: pixel locations of the system we're analyzing
     @:returns tuple representing the (health, power) of a system. 
     """
-    def get_system_health_power(self, index, image, capacity):
-        row = 1385 # initial segment is at row 1381
-        row_height = 16 # 16 pixels between segments
-        #column is a tuple because I'm sampling 2 pixels in the segment. Both must be not red for the segment to be healthy.
-        # TODO: adjust these columns and change fault tolerance, when they take damage the screen shakes
-        cols = [(170, 201), (242, 273), (314, 345), (386, 417), (458, 489)]
-        health = 0
-        power = 0
-        for i in range(capacity):
-            pixel_1 = image[row][cols[index][0]]
-            pixel_2 = image[row][cols[index][1]]
-            print Utility.color(pixel_1), Utility.color(pixel_2)
-            if Utility.color(pixel_1) != "red" and Utility.color(pixel_2) != "red":
-                health += 1
-            if Utility.color(pixel_1) == "green" and Utility.color(pixel_2) == "green":
-                power += 1
-            row -= row_height # move to next segment
-        return health, power
+    def get_system_health_power(self, image, segments):
+
 
     """
     Get a nice printout of the player's ship status

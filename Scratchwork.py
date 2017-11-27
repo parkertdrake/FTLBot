@@ -11,7 +11,7 @@ pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files (x86)/Tesseract-OCR/te
 
 Utility.countdown(5)
 enc = Encounter()
-image = Utility.screen_grab(save=True, filename="reference.png")
+image = Utility.screen_grab()
 enc.update(image)
 enc.print_player_status()
 
