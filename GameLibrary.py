@@ -44,6 +44,7 @@ class Encounter:
         if image is None:
             image = Utility.screen_grab()
         #player updates
+        self.update_reactor(image)
         self.update_player_health(image)
         self.update_player_shield(image)
         self.update_player_engine(image)
@@ -53,6 +54,21 @@ class Encounter:
         # enemy updates
         #self.update_enemy_health(image)
         #self.update_enemy_shield(image)
+
+    """
+    Update reactor availability
+    @:param image of game screen
+    """
+    def update_reactor(self, image):
+        reactor_segments = Locations.REACTOR_SEGMENTS
+        reactor = 0
+        for seg in reactor_segments:
+            pixel = image[seg[0]][seg[1]]
+            if Utility.color(pixel) == "green":
+                reactor += 1
+            else:
+                break
+        self.player_ship.reactor_available = reactor
 
     """
     Updates the kestrel's health
@@ -223,7 +239,7 @@ class Encounter:
     """
     def print_player_status(self):
         print "Player Ship Status: "
-        print "Hull: ", self.player_ship.hull
+        print "Hull: ", self.player_ship.hull, "Reactor: ", self.player_ship.reactor_available
         print "Shield Power: ", self.player_ship.shields.power_level, ", Shield Health: ", self.player_ship.shields.health, \
             ", Shield Bubbles: ", self.player_ship.shields.bubbles
         print  "Engine Power: ", self.player_ship.engines.power_level, ", Engine Health: ", self.player_ship.engines.health
