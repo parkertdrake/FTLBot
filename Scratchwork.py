@@ -13,7 +13,15 @@ Utility.countdown(5)
 enc = Encounter()
 image = Utility.screen_grab()
 enc.update(image)
-enc.identify_enemy(image)
+power_command = PowerCommand(enc.player_ship.oxygen, 0)
+power_command.execute()
+image = Utility.screen_grab()
+enc.update(image)
+power_command = PowerCommand(enc.player_ship.oxygen, 1)
+power_command.execute()
 enc.print_player_status()
+
+
+
 
 
