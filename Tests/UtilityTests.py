@@ -19,6 +19,11 @@ class TestUtility(unittest.TestCase):
         pixel = [255,255, 255]
         assert Utility.color(pixel) == "white"
 
+    def test_color2(self):
+        pixel = [255, 0, 0]
+        assert Utility.color(pixel) == "red"
+
+
 
 
 

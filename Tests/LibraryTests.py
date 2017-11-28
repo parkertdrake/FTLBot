@@ -13,6 +13,12 @@ class TestLibrary(unittest.TestCase):
         enc.update_player_health(img)
         assert enc.player_ship.hull == 27
 
+    def test_player_reactor(self):
+        img = Utility.load_image_from_file("TestInputs/reference.png")
+        enc = GameLibrary.Encounter()
+        enc.update_reactor(img)
+        assert enc.player_ship.reactor_available == 4
+
     def test_player_shield(self):
         img = Utility.load_image_from_file("TestInputs/reference.png")
         enc = GameLibrary.Encounter()
