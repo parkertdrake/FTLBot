@@ -52,7 +52,7 @@ Given image, get the text out of it as a string using tesseract OCR
 """
 def image_text(image):
     save_screen(image, 'temp.png') #drop it into a temp file
-    text = pytesseract.image_to_string(Image.open('temp.png'))
+    text = pytesseract.image_to_string(Image.open('te.png'))
     os.remove('temp.png')
     return text
 

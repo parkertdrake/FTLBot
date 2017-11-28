@@ -133,7 +133,6 @@ class Encounter:
 
 
     # Several functions to update status of enemy's ship
-
     """
     identifies enemy ship type using OCR
     @:param image
@@ -152,7 +151,6 @@ class Encounter:
         sub_image = image[top_row:bottom_row, left_col:right_col]
         text = Utility.image_text(sub_image)
         return text
-
 
     """
     Update enemy shield
