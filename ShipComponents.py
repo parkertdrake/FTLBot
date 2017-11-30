@@ -82,7 +82,7 @@ class Weapon:
     def __init__(self, name, index):
         # TODO: add other parameters
         self.name = name
-        self.index = index
+        self.index = index # starts at 0
         # TODO: use name to look up the weapons properties
 
 """
