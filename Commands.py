@@ -63,21 +63,22 @@ Targeting commands.
 Given a weapon system and a target room. Executing the command means firing the weapon at the room.
 """
 class FiringCommand(Command):
-
     """
     Constructor for a firing command
     @:param weapon to do the firing with
     @:param target - room to target on the enemy ship
     """
-    def __init__(self, weapon, room):
+    def __init__(self, weapon, target):
         self.weapon = weapon
-        self.room = room
+        self.target = target
         self.executed = False
 
     def execute(self):
         if self.executed:
             return # can only execute once
-        # otherwise we need to tap the
+        weapon_key = str(self.weapon.index + 1)
+        Utility.tap_key(weapon_key)
+        Utility.click_screen(self.target.location[0], self.target.location[1])
 
 """
 Commands to vent rooms to space
