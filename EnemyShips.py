@@ -8,9 +8,19 @@ Distinguishing between enemy ships basically means seeing where rooms are locate
 Super class for enemy ships. Not sure yet if this needs to hold anything really.
 """
 class EnemyShip():
-    def __init__(self):
-        pass
+    """
+    Constructor
+    Given name of enemy ship, pulls out the proper parameters from the JSON file
+    """
+    def __init__(self, name=None):
+        # TODO: implement
+        # open up the json file, pull the json object for this typ of ship. Name is lookup number.
 
+        #need to track:
+        # health,
+        # shields,
+        # all "targets" -> weapons, shields, o2, engines, medbay
+        pass
 
 
 """
