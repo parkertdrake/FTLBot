@@ -235,6 +235,20 @@ class Encounter:
 
 
     """
+    Given the current state of the game, generate all valid commands that can be taken.
+    """
+    def generate_command_set(self):
+        # first power commands
+
+
+        # then firing commands
+
+
+        # then venting commands
+
+        pass
+
+    """
     Get a nice printout of the player's ship status
     """
     def print_player_status(self):

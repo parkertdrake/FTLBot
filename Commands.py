@@ -23,26 +23,6 @@ class Command:
         pass
 
 """
-Targeting commands.
-Given a weapon system and a target room. Executing the command means firing the weapon at the room.
-"""
-class FiringCommand(Command):
-
-    """
-    Constructor for a firing command
-    @:param weapon to do the firing with
-    @:param room to target
-    """
-    def __init__(self, weapon, room):
-        self.weapon = weapon
-        self.room = room
-        self.executed = False
-
-    def execute(self):
-        if self.executed:
-            return # a command can only be executed once (can I make a function destroy its object?)
-
-"""
 Given a system (any system), power it to a certain level. Executing the command means routing the power.
 """
 class PowerCommand(Command):
@@ -75,8 +55,29 @@ class PowerCommand(Command):
             diff = diff / 2 # only operates in entire shield bubbles
         for i in range(diff):
             print system.key
+            pyautogui.keyUp("shift")
             pyautogui.press(system.key)
-        pyautogui.keyUp("shift")
+
+"""
+Targeting commands.
+Given a weapon system and a target room. Executing the command means firing the weapon at the room.
+"""
+class FiringCommand(Command):
+
+    """
+    Constructor for a firing command
+    @:param weapon to do the firing with
+    @:param target - room to target on the enemy ship
+    """
+    def __init__(self, weapon, room):
+        self.weapon = weapon
+        self.room = room
+        self.executed = False
+
+    def execute(self):
+        if self.executed:
+            return # can only execute once
+        # otherwise we need to tap the
 
 """
 Commands to vent rooms to space
