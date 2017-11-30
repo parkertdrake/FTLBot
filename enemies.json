@@ -1,0 +1,32 @@
+{
+  "ship 1": {
+    "shield_location": [1, 2],
+    "weapons_location": [2, 4],
+    "engines_location": [0, 0],
+    "oxygen_location": [0, 0],
+    "medbay_location": [0, 0],
+    "health_row": 10,
+    "health_segs": 20
+  }
+
+  , "ship 2": {
+    "shield_location": [1, 2],
+    "weapons_location": [2, 4],
+    "engines_location": [0, 0],
+    "oxygen_location": [0, 0],
+    "medbay_location": [0, 0],
+    "health_row": 10,
+    "health_segs": 20
+  }
+
+  , "ship 3": {
+    "shield_location": [1, 2],
+    "weapons_location": [2, 4],
+    "engines_location": [0, 0],
+    "oxygen_location": [0, 0],
+    "medbay_location": [0, 0],
+    "health_row": 10,
+    "health_segs": 20
+  }
+
+}
