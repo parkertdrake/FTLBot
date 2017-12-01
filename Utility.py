@@ -83,7 +83,10 @@ def click_screen(row, col):
     rect = GetWindowRect(handle)
     x = rect[0]
     y = rect[1]
-    pyautogui.click(x + col, y + row)
+    offset = 20 # clicking is off by just a touch
+    pyautogui.moveTo(x + col, y + row + offset)
+    time.sleep(.01)
+    pyautogui.click(x + col, y + row + offset)
 
 """
 Gauges the color of the pixel
@@ -102,6 +105,10 @@ def color(pixel):
     # pretty tight variance on the colors, and overall low pixel values
     if abs(r - g) < 3 and abs(r - b) < 3 and abs(g - b) < 3 and r + g + b < 90:
         return "black"
+
+    # pretty tight variance on the colors, and overall low pixel values
+    if abs(r - g) < 15 and abs(r - b) < 15 and abs(g - b) < 15:
+        return "gray"
 
     # high red compared to other values
     if r > g * 2 and r > b * 2 and r > 150:
