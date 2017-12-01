@@ -119,10 +119,3 @@ class DoorCommand(Command):
             return # door is already in the target state
         else:
             Utility.click_screen(self.door.location[0], self.door.location[1])
-
-"""
-Given a crew member and a room, send them to the room.
-"""
-class CrewCommand(Command):
-    def __init__(self):
-        pass
