@@ -1,6 +1,7 @@
 import pytesseract
 from GameLibrary import Encounter
 import Utility
+import Locations
 import pyautogui
 from time import sleep
 from PIL import Image
@@ -9,19 +10,8 @@ import cv2
 pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files (x86)/Tesseract-OCR/tesseract'
 
 
-Utility.countdown(5)
+Utility.countdown(3)
 enc = Encounter()
-image = Utility.screen_grab()
-enc.update(image)
-power_command = PowerCommand(enc.player_ship.oxygen, 0)
-power_command.execute()
-image = Utility.screen_grab()
-enc.update(image)
-power_command = PowerCommand(enc.player_ship.oxygen, 1)
-power_command.execute()
-enc.print_player_status()
-
-
-
+enc.update()
 
 

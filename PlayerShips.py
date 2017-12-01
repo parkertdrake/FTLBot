@@ -17,11 +17,13 @@ class Kestrel:
         self.oxygen = ShipComponents.OxygenSystem(1, 1, 1) # default oxygen system
 
         #self.weapons = ShipComponents.WeaponSystem()
-        #self.rooms = ShipComponents.RoomSystem(self.shields,
-        #                                       self.engines,
-        #                                       self.medbay,
-        #                                       self.oxygen,
-        #                                       self.weapons)
+        self.weapons = None
+
+        self.rooms = ShipComponents.RoomSystem(self.shields,
+                                               self.engines,
+                                               self.medbay,
+                                               self.oxygen,
+                                               self.weapons)
         #self.crew = ShipComponents.Crew()
 
 

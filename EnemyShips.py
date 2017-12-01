@@ -1,6 +1,10 @@
 """
 Module to hold all enemy ships
 Distinguishing between enemy ships basically means seeing where rooms are located.
+NOTE: Ship name is not good enough as an identifier. There are multiple "Pirate Scouts" for example.
+Also seems that ship layouts are randomized. Big problem.
+    Can I scan for features? The icons for systems are a constant.
+        Find the location of the icon, and use that to figure out where your targets are.
 """
 
 
@@ -10,17 +14,14 @@ Super class for enemy ships. Not sure yet if this needs to hold anything really.
 class EnemyShip():
     """
     Constructor
-    Given name of enemy ship, pulls out the proper parameters from the JSON file
+    Given image of game screen, figure out where all the targets are, as well as health / shields
     """
-    def __init__(self, name=None):
-        # TODO: implement
-        # open up the json file, pull the json object for this typ of ship. Name is lookup number.
-
-        #need to track:
-        # health,
-        # shields,
-        # all "targets" -> weapons, shields, o2, engines, medbay
+    def __init__(self, image):
+        # thought, I could create test images that are pictures of the icons.
+        # Then start grabbing slices from the enemy region of the screen, think sliding tile.
+        # Try to find the locations of the slices that match the icons.
         pass
+
 
 
 """

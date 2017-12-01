@@ -214,9 +214,9 @@ class RoomSystem:
 
         # now we create the adjacency matrix for the graph, initialize 17 x 17 of None
         self.matrix = []
-        for i in range(17):
+        for i in range(18):
             mat_row = []
-            for j in range(17):
+            for j in range(18):
                 mat_row.append(None)
             self.matrix.append(mat_row)
 
