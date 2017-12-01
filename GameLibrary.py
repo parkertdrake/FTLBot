@@ -33,7 +33,7 @@ class Encounter:
     """
     def __init__(self):
         self.player_ship = Kestrel()
-        self.enemy_ship = PirateScout()
+        # self.enemy_ship =
 
     # Several functions to update status of player's ship
     """
@@ -50,6 +50,7 @@ class Encounter:
         self.update_player_engine(image)
         self.update_player_medbay(image)
         self.update_player_oxygen(image)
+        self.update_player_doors(image)
 
         # enemy updates
         #self.update_enemy_health(image)
@@ -145,7 +146,11 @@ class Encounter:
         for door in doors:
             location = door.location
             pixel = image[location[0]][location[1]]
-            # need to check color of open vs closed?
+            if Utility.color(pixel) == "orange":
+                door.is_open = False
+            else:
+                door.is_open = True
+            print door.is_open
 
 
     # Several functions to update status of enemy's ship
