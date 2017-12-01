@@ -10,6 +10,7 @@ import Utility
 from PlayerShips import Kestrel
 from EnemyShips import *
 import Locations
+import Commands
 
 # a way I could do this is to store none of the information in "Ship" classes or anything like that.
 # the only source of truth is the current image of the game state.
@@ -244,6 +245,20 @@ class Encounter:
     """
     def generate_command_set(self):
         # first power commands
+        power_commands = []
+        # go through engines, shield, medbay, oxygen, and weapons.
+        systems = [self.player_ship.engines, \
+                   self.player_ship.shields, \
+                   self.player_ship.medbay, \
+                   self.player_ship.oxygen, \
+                   self.player_ship.weapons]
+        for system in systems:
+            for target_power_level in range(0, system.capacity):
+                diff = target_power_level - system.power_level
+                if self.player_ship.reactor_available > diff: #you've got enough gas in the tank
+                    new_command = Commands.PowerCommand(system, target_power_level)
+                    power_commands.append(new_command)
+
 
 
         # then firing commands
