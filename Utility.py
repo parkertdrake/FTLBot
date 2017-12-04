@@ -99,7 +99,7 @@ def color(pixel):
     b = int(pixel[2])
 
     # pretty tight variance on the colors, and overall high pixel values
-    if abs(r - g) < 3 and abs(r - b) < 3 and abs(g - b) < 3 and r + g + b > 715:
+    if abs(r - g) < 30 and abs(r - b) < 30 and abs(g - b) < 30 and r + g + b > 715:
         return "white"
 
     # pretty tight variance on the colors, and overall low pixel values
