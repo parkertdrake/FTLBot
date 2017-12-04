@@ -54,16 +54,14 @@ class WeaponSystem(System):
         @:param location: pixel location of the system onscreen. Tuple (row, col). Needed for clicking on the system.
         @:param weapons: array of weapons for the weapon system (up to 4)
         """
-    def __init__(self, capacity, health, power_level, weapons):
+    def __init__(self, capacity, health, power_level):
         self.capacity = capacity
         self.health = health
         self.power_level = power_level
-        self.weapons = weapons
         self.key = "w"
 
         self.artemis = Weapon("artemis", 1)
         self.burst_laser = Weapon("burst_laser_2", 0)
-
 
 
 """
