@@ -61,18 +61,10 @@ class WeaponSystem(System):
         self.weapons = weapons
         self.key = "w"
 
-    """
-    Install a new weapon onto the ship.
-    """
-    def add_weapon(self, weapon):
-        if len(self.weapons < 4):
-            self.weapons.append(weapon)
+        self.artemis = Weapon("artemis", 1)
+        self.burst_laser = Weapon("burst_laser_2", 0)
 
-    """
-    Reposition weapons in the system
-    """
-    def reorder_weapons(self, weapon_index1, weapon_index2):
-        pass
+
 
 """
 Class to hold weapons and their status
@@ -80,10 +72,10 @@ charge, name, index in the system, power status, firing status
 """
 class Weapon:
     def __init__(self, name, index):
-        # TODO: add other parameters
         self.name = name
         self.index = index # starts at 0
-        # TODO: use name to look up the weapons properties
+        self.powered = False
+        self.ready = False
 
 """
 Class for shield systems

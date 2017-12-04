@@ -134,7 +134,45 @@ class Encounter:
     @:param image of game screen 
     """
     def update_player_weapons(self, image):
-        #TODO implement
+        health, power = self.get_system_health_power(image, Locations.WEAPON_SEGMENTS)
+        self.player_ship.weapons.health = health
+        self.player_ship.power_level = power
+        # determine the power status of the weapons
+
+        artemis = self.player_ship.weapons.artemis
+        burst_laser = self.player_ship.weapons.burst_laser
+
+        artemis_locations = Locations.ARTEMIS
+        burst_laser_locations = Locations.BURST_LASER
+
+        #artemis check
+        for loc in artemis_locations:
+            pixel = image[loc[0], loc[1]]
+            color = Utility.color(pixel)
+            if color == "green" or color == "white":
+                artemis.powered = True
+                artemis.ready = False
+            elif color == "green":
+                artemis.ready = True
+            else:
+                artemis.ready = False
+                artemis.powered = False
+
+        #burst laser check
+        for loc in burst_laser_locations:
+            pixel = image[loc[0], loc[1]]
+            color = Utility.color(pixel)
+            if color == "green" or color == "white":
+                burst_laser.powered = True
+                burst_laser.ready = False
+            elif color == "green":
+                burst_laser.ready = True
+            else:
+                burst_laser.ready = False
+                burst_laser.powered = False
+
+
+
         pass
 
     """
@@ -230,10 +268,10 @@ class Encounter:
             average_pixel = [x / 10 for x in average_pixel]
             # now look at the color of the average pixel
             color = Utility.color(average_pixel)
-            if (color == "green"):
+            if color == "green":
                 health += 1
                 power += 1
-            elif (color == "white"):
+            elif color == "white":
                 health += 1
             else:
                 break # neither healthy nor powered, we've hit our limit

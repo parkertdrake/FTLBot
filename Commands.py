@@ -35,7 +35,6 @@ class PowerCommand(Command):
         self.system = system
         self.power_level = target_power_level
 
-
     """
     Execute the command.
     """
@@ -57,6 +56,10 @@ class PowerCommand(Command):
             print system.key
             pyautogui.keyUp("shift")
             pyautogui.press(system.key)
+
+        if system.key == "w": # this is the weapon system, works differently, only operates in whole weapons
+            #TODO implement this
+            pass
 
 """
 Targeting commands.
