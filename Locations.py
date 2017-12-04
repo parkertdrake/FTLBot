@@ -146,6 +146,10 @@ WEAPON_SEGMENTS = [
 (1398, 484) ]
 ]
 
+# pixel locations for the specific weapons
+BURST_LASER = [(1424, 592)]
+ARTEMIS = [(1423, 784)]
+
 # shield bubbles
 PLAYER_BUBBLES = [
 (228, 52)
@@ -155,6 +159,8 @@ PLAYER_BUBBLES = [
 ]
 ENEMY_BUBBLES = None
 
+# rooms on the Kestrel
+# doors on the Kestrel
 ROOMS = [
             (-1, 1),      # special one for space
             (772 ,543),  # row col for engine room
@@ -167,9 +173,6 @@ ROOMS = [
             (582, 892), (695, 892),(841, 892), (952, 892),
             (738, 1178), (809, 1178), (776, 1312), (776, 1418)
         ]
-# rooms on the Kestrel
-
-# doors on the Kestrel
 DOORS = [
             (739, 402), (741, 472), (696, 571), (654, 613), (697, 712),
             (839, 581), (872, 612), (839, 713), (736, 824), (801, 825),
