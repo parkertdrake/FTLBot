@@ -38,13 +38,21 @@ def generate_player_hull_segments(row, starting_col, col_width):
     print "]"
 
 """
-Generate list of all enemy hull segments
+Generate list of all enemy hull segments (20)
 @:param row of all health segments
 @:param col: starting column of first segment
 @:param col_width: distance between health segments on the x axis
 """
 def generate_enemy_hull_segments(row, starting_col, col_width):
-    pass
+    num_segments = 20  # 20 hull segments
+    col = starting_col
+    print "ENEMY_HULL_SEGMENTS = [",
+    for i in range(num_segments):
+        print "(" + str(row) + ", " + str(col) + ")"
+        if i < num_segments - 1:
+            print ",",
+        col += col_width
+    print "]"
 
 """
 Generate segment locations for all major systems. Shields, engines, medbay, O2, and weapons
@@ -104,6 +112,19 @@ def generate_player_bubble_segments(row, starting_col, col_width):
         col += col_width
     print "]"
 
+def generate_enemy_bubble_segments(row, starting_col, col_width):
+    num_segments = 10
+    col = starting_col
+    print "ENEMY_BUBBLES = ["
+    for i in range(num_segments):
+        print "(" + str(row) + ", " + str(col) + ")"
+        if i < num_segments - 1:
+            print ",",
+        col += col_width
+    print "]"
 
-generate_system_segments(1430, 165, 16, 73, 100, 30)
+
+#generate_system_segments(1430, 165, 16, 73, 100, 30)
 #generate_player_bubble_segments(228, 52, 46)
+generate_enemy_hull_segments(255, 876, 22)
+generate_enemy_bubble_segments(321, 1668, 36)
