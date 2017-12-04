@@ -34,7 +34,8 @@ class Encounter:
     """
     def __init__(self):
         self.player_ship = Kestrel()
-        # self.enemy_ship =
+        image = Utility.screen_grab()
+        self.enemy_ship = EnemyShip(image)
 
     # Several functions to update status of player's ship
     """
@@ -215,34 +216,27 @@ class Encounter:
     @:param image of game screen
     """
     def update_enemy_health(self, image):
-        health_cols = self.enemy_ship.health_cols
-        seg_width = 22 # width of health segments
-        health_row = self.enemy_ship.health_row
-        health = 0
-        for col in health_cols:
-            pixel = image[health_row, col]
-            if Utility.color(pixel) == "green":
-                health += 1
-            else:
-                break # if this one's not green, the rest won't be either
-            col += seg_width # next health segment
-        self.enemy_ship.hull = health
+        enemy_health = 0
+        health_segs = Locations.ENEMY_HULL_SEGMENTS
+        for seg in health_segs:
+            color = Utility.color(image[seg[0]][seg[1]])
+            if color == "green":
+                enemy_health += 1
+        self.enemy_ship.hull = enemy_health
+
 
     """
     Update enemy shield
     @:param image of game screen
     """
     def update_enemy_shield(self, image):
-        shield_row = self.enemy_ship.shield_row
-        shield_cols = self.enemy_ship.shield_cols
-        shield_level = 0
-        for col in shield_cols:
-            pixel = image[shield_row, col]
-            if Utility.color(pixel) == "blue":
-                shield_level += 1
-            else:
-                break # if this one's not blue the rest won't be either
-        self.enemy_ship.shields = shield_level
+        bubbles = 0
+        shield_segs = Locations.ENEMY_BUBBLES
+        for seg in shield_segs:
+            color = Utility.color(image[seg[0][seg[1]]])
+            if color == "blue":
+                bubbles += 1
+        self.enemy_ship.bubbles = bubbles
 
     # Some helper functions
     """
@@ -322,7 +316,7 @@ class Encounter:
     def print_enemy_status(self):
         print "Enemy Ship Status: "
         print "Hull: ", self.enemy_ship.hull
-        print "Shield Level: ", self.enemy_ship.shields
+        print "Shield Bubbles: ", self.enemy_ship.bubbles
 
     """
     Print the status of both players

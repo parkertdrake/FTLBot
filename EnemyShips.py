@@ -20,7 +20,8 @@ class EnemyShip():
         # thought, I could create test images that are pictures of the icons.
         # Then start grabbing slices from the enemy region of the screen, think sliding tile.
         # Try to find the locations of the slices that match the icons.
-        pass
+        self.hull = 0
+        self.bubbles = 0
 
 
 
