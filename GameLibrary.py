@@ -172,9 +172,6 @@ class Encounter:
                 burst_laser.powered = False
 
 
-
-        pass
-
     """
     Scan the doors on the image and update the open flags
     @:param image of game screen
