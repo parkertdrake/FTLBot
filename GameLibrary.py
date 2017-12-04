@@ -52,6 +52,7 @@ class Encounter:
         self.update_player_medbay(image)
         self.update_player_oxygen(image)
         self.update_player_doors(image)
+        self.update_player_weapons(image)
 
         # enemy updates
         #self.update_enemy_health(image)
@@ -134,6 +135,7 @@ class Encounter:
     @:param image of game screen 
     """
     def update_player_weapons(self, image):
+        print "updating weapons"
         health, power = self.get_system_health_power(image, Locations.WEAPON_SEGMENTS)
         self.player_ship.weapons.health = health
         self.player_ship.power_level = power
@@ -186,7 +188,6 @@ class Encounter:
                 door.is_open = False
             else:
                 door.is_open = True
-            print door.is_open
 
 
     # Several functions to update status of enemy's ship
