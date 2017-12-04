@@ -60,7 +60,7 @@ def generate_system_segments(starting_row, starting_col, row_height, col_width, 
     num_engine_segments = 2
     num_medbay_segments = 1
     num_oxygen_segments = 1
-    num_weapon_segments = 2
+    num_weapon_segments = 3
     segments = [num_shield_segments, num_engine_segments, num_medbay_segments, num_oxygen_segments, num_weapon_segments]
     titles = ["SHIELD_SEGMENTS", "ENGINE_SEGMENTS", "MEDBAY_SEGMENTS", "OXYGEN_SEGMENTS", "WEAPON_SEGMENTS"]
     col = starting_col
@@ -105,5 +105,5 @@ def generate_player_bubble_segments(row, starting_col, col_width):
     print "]"
 
 
-#generate_system_segments(1430, 165, 16, 73, 100, 30)
-generate_player_bubble_segments(228, 52, 46)
+generate_system_segments(1430, 165, 16, 73, 100, 30)
+#generate_player_bubble_segments(228, 52, 46)
