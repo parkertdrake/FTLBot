@@ -13,5 +13,7 @@ pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files (x86)/Tesseract-OCR/te
 Utility.countdown(3)
 enc = Encounter()
 enc.update()
+print enc.player_ship.weapons.artemis.powered
+print enc.player_ship.weapons.burst_laser.powered
 
 
