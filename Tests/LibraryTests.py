@@ -73,14 +73,11 @@ class TestLibrary(unittest.TestCase):
         img = Utility.load_image_from_file("TestInputs/reference.png")
         enc = GameLibrary.Encounter()
         enc.update_enemy_health(img)
-        print "enemy hull", enc.enemy_ship.hull
         assert enc.enemy_ship.hull == 9
-
 
     def test_enemy_shield(self):
         img = Utility.load_image_from_file("TestInputs/reference.png")
         enc = GameLibrary.Encounter()
         enc.update_enemy_shield(img)
-        print "enemy hull", enc.enemy_ship.hull
         assert enc.enemy_ship.bubbles == 1
 
