@@ -56,7 +56,7 @@ class Encounter:
         self.update_player_weapons(image)
 
         # enemy updates
-        #self.update_enemy_health(image)
+        self.update_enemy_health(image)
         #self.update_enemy_shield(image)
 
     """
@@ -136,7 +136,6 @@ class Encounter:
     @:param image of game screen 
     """
     def update_player_weapons(self, image):
-        print "updating weapons"
         health, power = self.get_system_health_power(image, Locations.WEAPON_SEGMENTS)
         self.player_ship.weapons.health = health
         self.player_ship.power_level = power
@@ -180,7 +179,6 @@ class Encounter:
     @:param image of game screen
     """
     def update_player_doors(self, image):
-        #TODO implement
         doors = self.player_ship.rooms.doors
         for door in doors:
             location = door.location
@@ -233,7 +231,7 @@ class Encounter:
         bubbles = 0
         shield_segs = Locations.ENEMY_BUBBLES
         for seg in shield_segs:
-            color = Utility.color(image[seg[0][seg[1]]])
+            color = Utility.color(image[seg[0]][seg[1]])
             if color == "blue":
                 bubbles += 1
         self.enemy_ship.bubbles = bubbles
@@ -290,13 +288,17 @@ class Encounter:
                     power_commands.append(new_command)
 
 
-
+        weapon_commands = []
         # then firing commands
 
 
         # then venting commands
+        vent_commands = []
+        for room in self.player_ship.rooms:
+            vent_commands.append((Commands.VentCommand(room, self.player_ship.rooms)))
 
-        pass
+
+        return power_commands + weapon_commands + vent_commands
 
     """
     Get a nice printout of the player's ship status
