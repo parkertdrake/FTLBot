@@ -126,5 +126,5 @@ def generate_enemy_bubble_segments(row, starting_col, col_width):
 
 #generate_system_segments(1430, 165, 16, 73, 100, 30)
 #generate_player_bubble_segments(228, 52, 46)
-generate_enemy_hull_segments(255, 876, 22)
-generate_enemy_bubble_segments(321, 1668, 36)
+generate_enemy_hull_segments(255, 1578, 22)
+#generate_enemy_bubble_segments(321, 1668, 36)
