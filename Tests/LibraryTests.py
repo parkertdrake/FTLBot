@@ -49,6 +49,11 @@ class TestLibrary(unittest.TestCase):
         assert enc.player_ship.oxygen.power_level == 1
         assert enc.player_ship.oxygen.health == 1
 
+    def test_player_doors(self):
+        img = Utility.load_image_from_file("TestInputs/reference.png")
+        enc = GameLibrary.Encounter()
+        enc.update_player_doors(img)
+        assert enc.player_ship.rooms.doors[1].is_open == False
 
     # all together now
     def test_update(self):
@@ -64,5 +69,18 @@ class TestLibrary(unittest.TestCase):
         enemy_string = enc.identify_enemy(img)
         assert (enemy_string == "Class: Rebel Fighter")
 
+    def test_enemy_hull(self):
+        img = Utility.load_image_from_file("TestInputs/reference.png")
+        enc = GameLibrary.Encounter()
+        enc.update_enemy_health(img)
+        print "enemy hull", enc.enemy_ship.hull
+        assert enc.enemy_ship.hull == 9
 
+
+    def test_enemy_shield(self):
+        img = Utility.load_image_from_file("TestInputs/reference.png")
+        enc = GameLibrary.Encounter()
+        enc.update_enemy_shield(img)
+        print "enemy hull", enc.enemy_ship.hull
+        assert enc.enemy_ship.bubbles == 1
 
