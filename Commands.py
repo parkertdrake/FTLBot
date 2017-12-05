@@ -117,10 +117,8 @@ class VentCommand(Command):
             # found it!
             visited[node] = True
             neighbors = room_system.get_neighbors(room_system.rooms[node]) # references to neighbors of node
-            print "neighbors of node: ", node
             for v in neighbors:
                 v_index = v.index
-                print v_index
                 alt = dists[node] + 1 # all edge weights are 1
                 if alt < dists[v_index]:
                     dists[v_index] = alt

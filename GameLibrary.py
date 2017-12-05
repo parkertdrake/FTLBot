@@ -294,7 +294,7 @@ class Encounter:
 
         # then venting commands
         vent_commands = []
-        for room in self.player_ship.rooms:
+        for room in self.player_ship.rooms.rooms:
             vent_commands.append((Commands.VentCommand(room, self.player_ship.rooms)))
 
 

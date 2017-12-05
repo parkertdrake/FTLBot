@@ -12,10 +12,12 @@ pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files (x86)/Tesseract-OCR/te
 
 Utility.countdown(3)
 enc = Encounter()
-rooms = enc.player_ship.rooms
-engine_room = rooms.rooms[3]
-vent_command = VentCommand(engine_room,rooms)
-vent_command.execute()
+#rooms = enc.player_ship.rooms
+#engine_room = rooms.rooms[5]
+#vent_command = VentCommand(engine_room,rooms)
+#vent_command.execute()
+
+enc.generate_command_set()
 
 
 
