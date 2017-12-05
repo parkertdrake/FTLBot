@@ -91,15 +91,59 @@ class VentCommand(Command):
     constructor
     @:param room to be vented
     """
-    def __init__(self, room):
+    def __init__(self, room, room_system):
         self.room = room
-        #TODO: implement BFS/DFS search to find the path to the space node
+        # need to find the shortest route between this room and space.
+        graph_matrix = room_system.matrix
+        room_index = room.index
+
+        # route from index to 0 (space node)
+        # use dijkstra's algorithm
+
+        dists = len(graph_matrix) * [1000] # functionally infinite
+        print dists
+        previous = [-1] * len(graph_matrix)
+        dists[room_index] = 0 # start here
+        visited = [False] * len(graph_matrix)
+
+        while False in visited:
+            min_so_far = 10000000
+            node = -1  # node we care about
+            for i in range(len(previous)):  # finding node with smallest distance
+                if dists[i] < min_so_far and visited[i] == False:
+                    min_so_far = dists[i]
+                    node = i
+
+            # found it!
+            visited[node] = True
+            neighbors = room_system.get_neighbors(room_system.rooms[node]) # references to neighbors of node
+            print "neighbors of node: ", node
+            for v in neighbors:
+                v_index = v.index
+                print v_index
+                alt = dists[node] + 1 # all edge weights are 1
+                if alt < dists[v_index]:
+                    dists[v_index] = alt
+                    previous[v_index] = node
+
+        # at this point previous should hold a traceback from space to our source node
+        # chase it back to get the doors
+        room_1 = 0 # start at space
+        room_2 = previous[0]
+        self.door_commands = []
+        while (room_1 != room.index):
+            door = graph_matrix[room_1][room_2]
+            self.door_commands.append(DoorCommand(door, True))
+            room_1 = room_2
+            room_2 = previous[room_2]
 
     """
     Vent the room to space
     """
     def execute(self):
-        pass
+        for command in self.door_commands:
+            command.execute()
+
 
 """
 Commands to open and close doors
