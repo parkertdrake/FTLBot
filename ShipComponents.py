@@ -183,11 +183,11 @@ class RoomSystem:
         # 5 major system rooms
         major_room_locations = Locations.ROOMS[0:5]
 
-        self.rooms.append((major_room_locations[0], engines, 1))  # engine room constructed
-        self.rooms.append((major_room_locations[1], oxygen, 2))   # oxygen room constructed
-        self.rooms.append((major_room_locations[2], weapons, 3))  # weapons room constructed
-        self.rooms.append((major_room_locations[3], medbay, 4))   # medbay room constructed
-        self.rooms.append((major_room_locations[4], shields, 5))  # shields room constructed
+        self.rooms.append(Room(major_room_locations[0], engines, 1))  # engine room constructed
+        self.rooms.append(Room(major_room_locations[1], oxygen, 2))   # oxygen room constructed
+        self.rooms.append(Room(major_room_locations[2], weapons, 3))  # weapons room constructed
+        self.rooms.append(Room(major_room_locations[3], medbay, 4))   # medbay room constructed
+        self.rooms.append(Room(major_room_locations[4], shields, 5))  # shields room constructed
 
         # 12 do not contain major systems.
         non_major_room_locations = Locations.ROOMS[5:]
@@ -257,6 +257,16 @@ class RoomSystem:
         self.matrix[16][15] = self.doors[20]
         self.matrix[16][17] = self.doors[21]
         self.matrix[17][16] = self.doors[21]
+
+    """
+    Given a room, get references to all its neighbors
+    """
+    def get_neighbors(self, room):
+        neighbors = []
+        for potential_neigbor in self.rooms:
+            if self.matrix[potential_neigbor.index][room.index] is not None:
+                neighbors.append(potential_neigbor)
+        return neighbors
 
 """
 Class for rooms. 
