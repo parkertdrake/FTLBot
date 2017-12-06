@@ -57,6 +57,41 @@ def image_text(image):
     return text
 
 """
+Given an image, scan for the location of the subimage
+@:param image as np array
+@:param subimage to search for, as numpy array
+@:return (row, col) tuple of the center of the subimage
+"""
+def scan_for_image(image, search_image):
+    location = (-1, -1)
+    im_height = image.shape[0]
+    im_width = image.shape[1]
+    sub_height = search_image.shape[0]
+    sub_width = search_image.shape[1]
+    for row in range(im_height):
+        for col in range(im_width):
+            test_image = get_sub_image(image, row, col, sub_width, sub_height)
+            if np.array_equal(test_image, search_image):
+                return ((row + sub_height)/2, (col + sub_width)/2)
+
+    return location # no match found
+
+"""
+Given an image, grab a subimage. Does do error checking
+@:param image to grab slice of
+@:param row - physically highest row (lower number = higher row)
+@:param col - leftmost col of image (lower number = more to the left)
+@:param width of subimage
+@:param heigh of subimage
+@:return np array of subimage
+"""
+def get_sub_image(image, row, col, width, height):
+    im_height = image.shape[0]
+    im_width = image.shape[1]
+    sub_image = image[max(0, row):min(im_height, row + height), max(0, col):min(im_width, col + width)]
+    return sub_image
+
+"""
 counts down from seconds. prints the result
 @:param seconds seconds to count down
 """
