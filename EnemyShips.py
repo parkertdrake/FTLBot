@@ -11,7 +11,7 @@ Also seems that ship layouts are randomized. Big problem.
 """
 Super class for enemy ships. Not sure yet if this needs to hold anything really.
 """
-class EnemyShip():
+class EnemyShip:
     """
     Constructor
     Given image of game screen, figure out where all the targets are, as well as health / shields
@@ -23,27 +23,26 @@ class EnemyShip():
         self.hull = 0
         self.bubbles = 0
 
+        # now we scan for all the major targets - weapons, shields, engines, medbay, helm, etc.
+        self.weapons = None
+        self.shields = None
+        self.engines = None
+        self.medbay = None
+        self.helm = None
+
 
 
 """
-Sub class for pirate scouts. Overrides pixel locations for its systems, health, and shields, etc.
+class to hold targets (things to shoot at)
+location - row, col pixel location
+health - 0 (red), 1(orange), 2(fully functional)
 """
-class PirateScout(EnemyShip):
-    def __init__(self):
-        self.hull = 0
-        self.shields = 0
-        #health stuff
-        self.health_row = 250 # This might(should) be same across all enemy ships, need to figure that out.
-        starting_col = 1784
-        segment_width = 22
-        self.health_cols = []
-        col = starting_col
-        for i in range(10): # this ship does not have 10 health segments, but it won't matter.
-            self.health_cols.append(col)
-            col += segment_width
-        #shield stuff
-        self.shield_row = 314 # again, should be the same across ships, need to confirm this
-        self.shield_cols = [1810, 1852, 1896] # I'll just hardcode these
+class Target:
+    def __init__(self, location):
+        self.location = location
+        self.health = 2
+
+
 
 
 
