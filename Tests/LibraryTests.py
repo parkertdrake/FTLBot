@@ -56,7 +56,6 @@ class TestLibrary(unittest.TestCase):
         assert enc.player_ship.weapons.artemis.ready == False
         assert enc.player_ship.weapons.burst_laser.ready == False
 
-
     def test_player_doors(self):
         img = Utility.load_image_from_file("TestInputs/reference.png")
         enc = GameLibrary.Encounter()
