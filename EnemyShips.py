@@ -30,6 +30,8 @@ class EnemyShip:
         self.medbay = None
         self.helm = None
 
+        #TODO: create search images for the various systems
+
 
 
 """
