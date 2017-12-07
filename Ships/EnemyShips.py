@@ -7,6 +7,7 @@ Also seems that ship layouts are randomized. Big problem.
         Find the location of the icon, and use that to figure out where your targets are.
 """
 
+import Utility
 
 """
 Super class for enemy ships. Not sure yet if this needs to hold anything really.
@@ -32,6 +33,10 @@ class EnemyShip:
 
         #TODO: create search images for the various systems
 
+        # for all the major systems, go scan for the image
+        weapons_image = Utility.load_image_from_file("../patches/weapons.png")
+        weapons_location = Utility.scan_for_image(image, weapons_image)
+        self.weapons = Target(weapons_location) # defaults to full health
 
 
 """
@@ -40,9 +45,9 @@ location - row, col pixel location
 health - 0 (red), 1(orange), 2(fully functional)
 """
 class Target:
-    def __init__(self, location):
+    def __init__(self, location, health=2):
         self.location = location
-        self.health = 2
+        self.health = health
 
 
 

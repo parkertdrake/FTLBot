@@ -70,9 +70,12 @@ def scan_for_image(image, search_image):
     sub_width = search_image.shape[1]
     for row in range(im_height):
         for col in range(im_width):
+
             test_image = get_sub_image(image, row, col, sub_width, sub_height)
             if np.array_equal(test_image, search_image):
-                return ((row + sub_height)/2, (col + sub_width)/2)
+                return (row + row + sub_height)/2, (col + col + sub_width)/2
+            #if (row > 40 and row < 200 and col > 40 and col < 200):
+             #   save_screen(test_image, str(row) + " " + str(col) + ".png")
 
     return location # no match found
 
