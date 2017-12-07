@@ -10,7 +10,6 @@ Design choice -
     This is going to cause a hit to performance. But 5-10 commands a second is still pretty good, and I can change this later.
 """
 
-import ShipComponents
 import pyautogui
 import Utility
 

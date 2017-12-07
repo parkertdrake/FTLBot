@@ -7,9 +7,9 @@ Idea: Command objects as the interface between the game library and an outside s
 """
 
 import Utility
-from PlayerShips import Kestrel
-from EnemyShips import *
-import Locations
+from Ships.PlayerShips import Kestrel
+from Ships.EnemyShips import *
+from Locations import Locations
 import Commands
 
 # a way I could do this is to store none of the information in "Ship" classes or anything like that.

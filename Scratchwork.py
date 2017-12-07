@@ -1,12 +1,8 @@
 import pytesseract
 from GameLibrary import Encounter
 import Utility
-import Locations
-import pyautogui
-from time import sleep
-from PIL import Image
-from Commands import PowerCommand, VentCommand
-import cv2
+from Commands import VentCommand
+
 pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files (x86)/Tesseract-OCR/tesseract'
 
 

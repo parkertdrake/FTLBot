@@ -4,8 +4,7 @@ Systems, subsystems, weapons, etc.
 All these classes do is hold information.
 """
 
-import Utility
-import Locations
+from Locations import Locations
 
 """
 System parent class, we can decompose systems like this...
