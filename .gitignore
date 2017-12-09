@@ -1,9 +1,9 @@
 *.png
-!engines.png
-!helm.png
-!oxygen.png
-!shields.png
-!weapons.png
+!patches/engines.png
+!patches/helm.png
+!patches/oxygen.png
+!patches/shields.png
+!patches/weapons.png
 *.JPG
 *.jpg
 *.PNG
