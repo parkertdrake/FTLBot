@@ -57,27 +57,49 @@ def image_text(image):
     return text
 
 """
-Given an image, scan for the location of the subimage
+Given an image, scan for the location of the subimage. Adjusted to allow for tolerance
 @:param image as np array
 @:param subimage to search for, as numpy array
 @:return (row, col) tuple of the center of the subimage
 """
 def scan_for_image(image, search_image):
-    location = (-1, -1)
+    location = [-1, -1]
     im_height = image.shape[0]
     im_width = image.shape[1]
     sub_height = search_image.shape[0]
     sub_width = search_image.shape[1]
     for row in range(im_height):
         for col in range(im_width):
-
+            #print row, col
             test_image = get_sub_image(image, row, col, sub_width, sub_height)
-            if np.array_equal(test_image, search_image):
-                return (row + row + sub_height)/2, (col + col + sub_width)/2
+            if compare_images(test_image, search_image, .9):
+                return [(row + row + sub_height)/2, (col + col + sub_width)/2]
             #if (row > 40 and row < 200 and col > 40 and col < 200):
              #   save_screen(test_image, str(row) + " " + str(col) + ".png")
 
     return location # no match found
+
+
+"""
+Returns true if the images are the same (within a tolerance), images must be the same size
+@:param image1 to compare as np array
+@:param image2 to compare as np array
+@:param tolerance - percent of pixels that must be the same
+@:returns true if they match, false otherwise
+"""
+def compare_images(image1, image2, tolerance):
+    if image1.shape != image2.shape:
+        return False
+    height = image1.shape[0]
+    width = image1.shape[0]
+    count_equal = np.count_nonzero(image1 == image2)
+    #print count_equal
+    #print height * width * 3
+    percentage = float(count_equal)/float(float(height) * float(width) * 3.)
+    #print percentage
+    if float(count_equal)/float(float(height) * float(width) * 3.) >= tolerance:
+        return True
+    return False
 
 """
 Given an image, grab a subimage. Does do error checking
