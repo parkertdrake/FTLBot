@@ -34,7 +34,7 @@ class Encounter:
     """
     def __init__(self):
         self.player_ship = Kestrel()
-        image = Utility.screen_grab()
+        image = Utility.screen_grab(save=True, filename="pirate_scout.png")
         self.enemy_ship = EnemyShip(image)
 
     # Several functions to update status of player's ship
