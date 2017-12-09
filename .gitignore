@@ -1,4 +1,9 @@
 *.png
+!engines.png
+!helm.png
+!oxygen.png
+!shields.png
+!weapons.png
 *.JPG
 *.jpg
 *.PNG
