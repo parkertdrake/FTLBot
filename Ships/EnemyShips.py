@@ -18,25 +18,28 @@ class EnemyShip:
     Given image of game screen, figure out where all the targets are, as well as health / shields
     """
     def __init__(self, image):
-        # thought, I could create test images that are pictures of the icons.
-        # Then start grabbing slices from the enemy region of the screen, think sliding tile.
-        # Try to find the locations of the slices that match the icons.
         self.hull = 0
         self.bubbles = 0
 
         # now we scan for all the major targets - weapons, shields, engines, medbay, helm, etc.
-        self.weapons = None
-        self.shields = None
-        self.engines = None
-        self.medbay = None
-        self.helm = None
+        weapon_image = Utility.load_image_from_file("patches/weapons.png")
+        sub_search_image = image[0:1340,1650:]
+        print "scanning"
 
-        #TODO: create search images for the various systems
+        weapons_loc = Utility.scan_for_image(sub_search_image, Utility.load_image_from_file("patches/weapons.png"))
+        shields_loc =  Utility.scan_for_image(sub_search_image, Utility.load_image_from_file("patches/shields.png"))
+        engines_loc =  Utility.scan_for_image(sub_search_image, Utility.load_image_from_file("patches/engines.png"))
+        oxygen_loc =  Utility.scan_for_image(sub_search_image, Utility.load_image_from_file("patches/oxygen.png"))
+        helm_loc =  Utility.scan_for_image(sub_search_image, Utility.load_image_from_file("patches/helm.png"))
 
-        # for all the major systems, go scan for the image
-        weapons_image = Utility.load_image_from_file("../patches/weapons.png")
-        weapons_location = Utility.scan_for_image(image, weapons_image)
-        self.weapons = Target(weapons_location) # defaults to full health
+        weapons_loc[1] += 1650
+        shields_loc[1] += 1650
+        engines_loc[1] += 1650
+        oxygen_loc[1] += 1650
+        helm_loc[1] += 1650
+
+        print weapons_loc, shields_loc, engines_loc, oxygen_loc, helm_loc
+
 
 
 """
