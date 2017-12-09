@@ -7,20 +7,28 @@ from Commands import VentCommand
 pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files (x86)/Tesseract-OCR/tesseract'
 
 
-# informally test image scanning
+"""
+weapons = Utility.load_image_from_file("patches/weapons.png")
+shields = Utility.load_image_from_file("patches/shields.png")
+engines = Utility.load_image_from_file("patches/engines.png")
+helm = Utility.load_image_from_file("patches/helm.png")
+oxygen = Utility.load_image_from_file("patches/oxygen.png")
+
+image2 = Utility.load_image_from_file("scanner_checker2.png")
+
+print "scanning"
+print "weapons", Utility.scan_for_image(image2, weapons)
+print "shields", Utility.scan_for_image(image2, shields)
+print "engines", Utility.scan_for_image(image2, engines)
+print "helm", Utility.scan_for_image(image2, helm)
+print "oxygen", Utility.scan_for_image(image2, oxygen)
+"""
 
 
-# I can generate scanning images in this way...
-test_full_image = Utility.load_image_from_file("input.png")
-
-scan_image = Utility.get_sub_image(test_full_image, 72, 89, 45, 30)
-Utility.save_screen(scan_image, "scan.png")
-scan_image2 = Utility.load_image_from_file("scan.png")
-
-
-
-location = Utility.scan_for_image(test_full_image, scan_image2)
-
-print location
+# currently confident that enemy image detection works with pf.png
+# also works with auto-scout.png
+# also works with pirate_scout.png
+Utility.countdown(3)
+enc = Encounter()
 
 
