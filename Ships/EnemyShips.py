@@ -24,6 +24,7 @@ class EnemyShip:
         # now we scan for all the major targets - weapons, shields, engines, medbay, helm, etc.
         weapon_image = Utility.load_image_from_file("patches/weapons.png")
         sub_search_image = image[0:1340,1650:]
+        Utility.tap_key('space') # pause the game while we scan
         print "scanning"
 
         weapons_loc = Utility.scan_for_image(sub_search_image, Utility.load_image_from_file("patches/weapons.png"))
@@ -39,6 +40,15 @@ class EnemyShip:
         helm_loc[1] += 1650
 
         print weapons_loc, shields_loc, engines_loc, oxygen_loc, helm_loc
+
+        # have all the locations, need to generate the targets
+        self.weapons = Target(weapons_loc) if weapons_loc[0] != -1 else None
+        self.shields = Target(shields_loc) if shields_loc[0] != -1 else None
+        self.engines = Target(engines_loc) if engines_loc[0] != -1 else None
+        self.oxygen = Target(oxygen_loc) if oxygen_loc[0] != -1 else None
+        self.helm = Target(helm_loc) if helm_loc[0] != -1 else None
+
+        Utility.tap_key("space") #unpause the game
 
 
 
