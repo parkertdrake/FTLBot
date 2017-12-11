@@ -3,6 +3,7 @@ from GameLibrary import Encounter
 import Utility
 import numpy as np
 from time import sleep
+import os
 from Commands import VentCommand, FiringCommand, PowerCommand
 
 pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files (x86)/Tesseract-OCR/tesseract'
@@ -25,7 +26,6 @@ print "found images", Utility.scan_for_image(image2, image_set)
 # currently confident that enemy image detection works with pf.png
 # also works with auto-scout.png
 # also works with pirate_scout.png
-"""
 
 
 Utility.countdown(3)
@@ -45,6 +45,17 @@ while True:
         sleep(.5) # just wait it out
     enc.update()
 
+"""
+
+PATH = "C:/Users/parke/PycharmProjects/FTLBot"
+img = None
+for path, dirs, files in os.walk(PATH):
+    for filename in files:
+        if filename == "weapons.png":
+            fullpath = os.path.join(path, filename)
+            img = open(fullpath)
+
+print type(img)
 
 
 

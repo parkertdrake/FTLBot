@@ -13,7 +13,7 @@ import pytesseract
 from PIL import Image
 import os
 pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files (x86)/Tesseract-OCR/tesseract' # needed for tesseract OCR
-
+PATH = "C:/Users/parke/PycharmProjects/FTLBot"
 
 """
 grabs a picture of the window in the foreground. Handles all the positioning and sizing
@@ -182,8 +182,19 @@ Given a filename, load an image (primarily using this for testing purposes)
 @:param filename of image to load (include the extension)
 @:returns np array of the image
 """
-def load_image_from_file(filename):
-    img = cv2.imread(filename)
+def load_image_from_file(in_file):
+    #known issue -> this function doesn't work from anywhere with any filename
+        # what I'd like is the ability to feed it a filename ("image.png") and no part of the path
+            # then this function will recursively search for the file starting from the FTLBot directory
+    img = None
+    for path, dirs, files in os.walk(PATH):
+        for filename in files:
+            if filename == in_file:
+                fullpath = os.path.join(path, filename)
+                img = open(fullpath)
+
+    print type(img)
+    img = cv2.imread(fullpath )
     return cv2.cvtColor(img, cv2.COLOR_BGR2RGB) # cv2 default color is brg (for some ungodly reason)
 
 
