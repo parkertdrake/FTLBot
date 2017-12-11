@@ -77,7 +77,7 @@ class TestLibrary(unittest.TestCase):
         assert (enemy_string == "Class: Rebel Fighter")
 
     def test_enemy_hull(self):
-        img = Utility.load_image_from_file("eference.png")
+        img = Utility.load_image_from_file("reference.png")
         enc = GameLibrary.Encounter(image=img, pause=False)
         enc.update_enemy_health(img)
         assert enc.enemy_ship.hull == 9
@@ -88,7 +88,6 @@ class TestLibrary(unittest.TestCase):
         enc.update_enemy_shield(img)
         assert enc.enemy_ship.bubbles == 1
 
-    #this doesn't actually test a library function, it tests a utility function
     def test_enemy_scan(self):
         img = Utility.load_image_from_file("reference.png")
         enc = GameLibrary.Encounter(image=img, pause=False)
@@ -98,9 +97,6 @@ class TestLibrary(unittest.TestCase):
         engines_loc = enc.enemy_ship.engines.location
         oxygen_loc = enc.enemy_ship.oxygen.location
         helm_loc = enc.enemy_ship.helm.location
-
-        print weapons_loc
-        print shields_loc
 
         assert weapons_loc[0] == 703
         assert weapons_loc[1] == 2057
@@ -119,7 +115,7 @@ class TestLibrary(unittest.TestCase):
 
     def test_enemy_systems(self):
         img = Utility.load_image_from_file("reference.png")
-        enc = GameLibrary.Encounter(pause=False)
+        enc = GameLibrary.Encounter(image=img,pause=False)
         enc.update(img)
         assert enc.enemy_ship.weapons.health == 2
 

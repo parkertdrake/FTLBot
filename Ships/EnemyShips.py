@@ -37,8 +37,6 @@ class EnemyShip:
         oxygen_loc[1] += 1650
         helm_loc[1] += 1650
 
-        print weapons_loc, shields_loc, engines_loc, oxygen_loc, helm_loc
-
         # have all the locations, need to generate the targets
         self.weapons = Target(weapons_loc) if weapons_loc[0] != -1 else None
         self.shields = Target(shields_loc) if shields_loc[0] != -1 else None
