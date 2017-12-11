@@ -9,25 +9,29 @@ from Commands import VentCommand, FiringCommand, PowerCommand
 pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files (x86)/Tesseract-OCR/tesseract'
 
 
-"""
-weapons = Utility.load_image_from_file("patches/weapons.png")
-shields = Utility.load_image_from_file("patches/shields.png")
-engines = Utility.load_image_from_file("patches/engines.png")
-helm = Utility.load_image_from_file("patches/helm.png")
-oxygen = Utility.load_image_from_file("patches/oxygen.png")
 
-image2 = Utility.load_image_from_file("scanner_checker2.png")
+weapons = Utility.load_image_from_file("weapons.png")
+shields = Utility.load_image_from_file("shields.png")
+engines = Utility.load_image_from_file("engines.png")
+helm = Utility.load_image_from_file("helm.png")
+oxygen = Utility.load_image_from_file("oxygen.png")
 
-image_set = [weapons, shields, engines, helm, oxygen]
+image2 = Utility.load_image_from_file("reference.png")
+
+
 print "scanning"
-print "found images", Utility.scan_for_image(image2, image_set)
+print Utility.scan_for_image(image2, weapons)
+print Utility.scan_for_image(image2, shields)
+print Utility.scan_for_image(image2, engines)
+print Utility.scan_for_image(image2, helm)
+print Utility.scan_for_image(image2, oxygen)
 
 
 # currently confident that enemy image detection works with pf.png
 # also works with auto-scout.png
 # also works with pirate_scout.png
 
-
+"""
 Utility.countdown(3)
 enc = Encounter()
 powercommand = PowerCommand(enc.player_ship.weapons, 3)
@@ -45,7 +49,7 @@ while True:
         sleep(.5) # just wait it out
     enc.update()
 
-"""
+
 
 PATH = "C:/Users/parke/PycharmProjects/FTLBot"
 img = None
@@ -56,6 +60,6 @@ for path, dirs, files in os.walk(PATH):
             img = open(fullpath)
 
 print type(img)
-
+"""
 
 
