@@ -24,8 +24,6 @@ class EnemyShip:
         # now we scan for all the major targets - weapons, shields, engines, medbay, helm, etc.
 
         sub_search_image = image[0:1340,1650:]
-        Utility.tap_key('space') # pause the game while we scan
-        print "scanning"
 
         weapons_loc = Utility.scan_for_image(sub_search_image, Utility.load_image_from_file("weapons.png"))
         shields_loc = Utility.scan_for_image(sub_search_image, Utility.load_image_from_file("shields.png"))
@@ -48,7 +46,6 @@ class EnemyShip:
         self.oxygen = Target(oxygen_loc) if oxygen_loc[0] != -1 else None
         self.helm = Target(helm_loc) if helm_loc[0] != -1 else None
 
-        Utility.tap_key("space") #unpause the game
 
 """
 class to hold targets (things to shoot at)

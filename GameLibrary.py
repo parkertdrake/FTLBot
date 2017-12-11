@@ -32,11 +32,18 @@ class Encounter:
 
     """
     Encounter constructor
+    @:param pause - whether or not to pause the game while you construct the encounter
+    pause will in general be true, false for testing where we feed it an image
     """
-    def __init__(self):
+    def __init__(self, pause=True, image=None):
+        if pause:
+            Utility.tap_key("space") # pause game while we analyze everything
         self.player_ship = Kestrel()
-        image = Utility.screen_grab(save=True, filename="pirate_scout.png")
+        if image is None:
+            image = Utility.screen_grab(save=True, filename="pirate_scout.png")
         self.enemy_ship = EnemyShip(image)
+        if pause:
+            Utility.tap_key("space") # unpause
 
     # Several functions to update status of player's ship
     """
@@ -279,7 +286,6 @@ class Encounter:
                 system.health = 1
             elif gray > orange and gray > red:
                 system.health = 2
-
 
     # Some helper functions
     """
