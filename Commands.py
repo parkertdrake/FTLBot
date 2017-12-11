@@ -46,13 +46,11 @@ class PowerCommand(Command):
         current_power = system.power_level
         diff = abs(current_power - target_power_level)
         if current_power > target_power_level:
-            print ("Decreasing, holding shift")
             pyautogui.keyDown("shift")
 
         if system.key == "a": # this is a shield system
             diff = diff / 2 # only operates in entire shield bubbles
         for i in range(diff):
-            print system.key
             pyautogui.keyUp("shift")
             pyautogui.press(system.key)
 
@@ -100,7 +98,7 @@ class VentCommand(Command):
         # use dijkstra's algorithm
 
         dists = len(graph_matrix) * [1000] # functionally infinite
-        print dists
+        #print dists
         previous = [-1] * len(graph_matrix)
         dists[room_index] = 0 # start here
         visited = [False] * len(graph_matrix)
