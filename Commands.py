@@ -139,7 +139,6 @@ class VentCommand(Command):
         for command in self.door_commands:
             command.execute()
 
-
 """
 Commands to open and close doors
 """
