@@ -7,6 +7,7 @@ Idea: Command objects as the interface between the game library and an outside s
 """
 
 import Utility
+import numpy as np
 from Ships.PlayerShips import Kestrel
 from Ships.EnemyShips import *
 from Locations import Locations
@@ -57,7 +58,8 @@ class Encounter:
 
         # enemy updates
         self.update_enemy_health(image)
-        #self.update_enemy_shield(image)
+        self.update_enemy_shield(image)
+        self.update_enemy_systems(image)
 
     """
     Update reactor availability
@@ -222,7 +224,6 @@ class Encounter:
                 enemy_health += 1
         self.enemy_ship.hull = enemy_health
 
-
     """
     Update enemy shield
     @:param image of game screen
@@ -236,12 +237,56 @@ class Encounter:
                 bubbles += 1
         self.enemy_ship.bubbles = bubbles
 
+    """
+    Given image of the game, update health of enemy targets
+    @:param image of the game screen
+    """
+    def update_enemy_systems(self, image):
+        enemy_ship = self.enemy_ship
+        weapons = enemy_ship.weapons
+        shields = enemy_ship.shields
+        helm = enemy_ship.helm
+        engines = enemy_ship.engines
+        oxygen = enemy_ship.oxygen
+
+        enemy_systems = [weapons, shields, helm, engines, oxygen]
+
+        for system in enemy_systems:
+            if system is None:
+                continue
+            location = system.location
+            #generate 10 pixels to check in the 20 * 20 vicinity of the center of the target symbol
+            pixel_rows = np.random.randint(location[0] - 10, location[0] + 10, 10)
+            pixel_cols = np.random.randint(location[0] - 10, location[0] + 10, 10)
+
+            # start checking colors
+            red = 0
+            orange = 0
+            gray = 0
+            for i in range(10):
+                pixel = image[pixel_rows[i]][pixel_cols[i]]
+                if Utility.color(pixel) == "red":
+                    red += 1
+                elif Utility.color(pixel) == "orange":
+                    orange += 1
+                else:
+                    gray += 1
+
+            # update health values
+            if red > orange and red > gray:
+                system.health = 0
+            elif orange > red and orange > gray:
+                system.health = 1
+            elif gray > orange and gray > red:
+                system.health = 2
+
+
     # Some helper functions
     """
     Given image, counts the healthy power segments (powered or unpowered of a system), and the power level 
     This is its own function so I'm not repeating the same for loop for every system
     @:param image: image of the game screen
-    @:param segments: pixel locations of the system we're analyzing
+    @:param segments: pixel locations of the system we're analyzing (pulled from locations.py)
     @:returns tuple representing the (health, power) of a system. 
     """
     def get_system_health_power(self, image, segments):
