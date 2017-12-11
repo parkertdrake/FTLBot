@@ -136,26 +136,6 @@ class OxygenSystem(System):
         self.key = "f"
 
 """
-Class for the crew
-Crew is made up of 0 - 6(7? Need to confirm max number of crew) members.
-This class may not need to exist. 
-"""
-class Crew:
-    #TODO: implement crew class
-    def __init__(self):
-        pass
-
-"""
-Class to hold crew members.
-A crew member is basically a name and a location. 
-Eventually I could track how good my crew members are at certain things, but that's later...
-"""
-class CrewMember:
-    # TODO: implement crew member class
-    def __init__(self):
-        pass
-
-"""
 Class to hold graph of rooms on the ship.
 Nodes are rooms, edges are doors.
 Room may have a system in it, might not.
@@ -301,3 +281,35 @@ class Door:
     def __init__(self, location, is_open):
         self.location = location
         self.is_open = is_open
+
+"""
+Class to hold a set of crew members for the players ship
+"""
+class Crew:
+    """
+    Constructor
+    @:param image of game screen to use
+    """
+    def __init__(self, image):
+        #TODO implement
+        # Thoughts -> we can scan the mouse over all the "cells" in the ship,
+            # when we hit a crew member, there will be a popup that shows their name and health.
+                # Then we use OCR (already set up) to identify them, and go from there
+
+        # routing crew members is pretty straightforward, each one has a hotkey...
+
+        pass
+
+"""
+Class for a single crew member
+"""
+class CrewMember:
+    """
+    Constructor
+    @:param name of crew member
+    @:param room they are currently in
+    """
+    def __init__(self, name, room):
+        #TODO implement
+        #Thoughts -> does the crew member need anything else? Probably a hotkey
+        pass
