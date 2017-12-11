@@ -8,13 +8,13 @@ Unit tests for utility functions (the ones that make sense anyway)
 """
 class TestLibrary(unittest.TestCase):
     def test_player_hull(self):
-        img = Utility.load_image_from_file("TestInputs/reference.png")
+        img = Utility.load_image_from_file("reference.png")
         enc = GameLibrary.Encounter()
         enc.update_player_health(img)
         assert enc.player_ship.hull == 27
 
     def test_player_reactor(self):
-        img = Utility.load_image_from_file("TestInputs/reference.png")
+        img = Utility.load_image_from_file("reference.png")
         enc = GameLibrary.Encounter()
         enc.update_reactor(img)
         assert enc.player_ship.reactor_available == 4
