@@ -154,7 +154,7 @@ class Encounter:
             if color == "green" or color == "white":
                 artemis.powered = True
                 artemis.ready = False
-            elif color == "green":
+            if color == "green":
                 artemis.ready = True
             else:
                 artemis.ready = False
@@ -167,7 +167,7 @@ class Encounter:
             if color == "green" or color == "white":
                 burst_laser.powered = True
                 burst_laser.ready = False
-            elif color == "green":
+            if color == "green":
                 burst_laser.ready = True
             else:
                 burst_laser.ready = False
