@@ -28,10 +28,10 @@ class EnemyShip:
         print "scanning"
 
         weapons_loc = Utility.scan_for_image(sub_search_image, Utility.load_image_from_file("patches/weapons.png"))
-        shields_loc =  Utility.scan_for_image(sub_search_image, Utility.load_image_from_file("patches/shields.png"))
-        engines_loc =  Utility.scan_for_image(sub_search_image, Utility.load_image_from_file("patches/engines.png"))
-        oxygen_loc =  Utility.scan_for_image(sub_search_image, Utility.load_image_from_file("patches/oxygen.png"))
-        helm_loc =  Utility.scan_for_image(sub_search_image, Utility.load_image_from_file("patches/helm.png"))
+        shields_loc = Utility.scan_for_image(sub_search_image, Utility.load_image_from_file("patches/shields.png"))
+        engines_loc = Utility.scan_for_image(sub_search_image, Utility.load_image_from_file("patches/engines.png"))
+        oxygen_loc = Utility.scan_for_image(sub_search_image, Utility.load_image_from_file("patches/oxygen.png"))
+        helm_loc = Utility.scan_for_image(sub_search_image, Utility.load_image_from_file("patches/helm.png"))
 
         weapons_loc[1] += 1650
         shields_loc[1] += 1650
@@ -49,8 +49,6 @@ class EnemyShip:
         self.helm = Target(helm_loc) if helm_loc[0] != -1 else None
 
         Utility.tap_key("space") #unpause the game
-
-
 
 """
 class to hold targets (things to shoot at)
