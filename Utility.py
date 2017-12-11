@@ -77,7 +77,6 @@ def scan_for_image(image, search_image):
                 return [(row + row + sub_height)/2, (col + col + sub_width)/2]
     return [-1, -1] # no match
 
-
 """
 Returns true if the images are the same (within a tolerance), images must be the same size
 @:param image1 to compare as np array
@@ -183,9 +182,6 @@ Given a filename, load an image (primarily using this for testing purposes)
 @:returns np array of the image
 """
 def load_image_from_file(in_file):
-    #known issue -> this function doesn't work from anywhere with any filename
-        # what I'd like is the ability to feed it a filename ("image.png") and no part of the path
-            # then this function will recursively search for the file starting from the FTLBot directory
     img = None
     for path, dirs, files in os.walk(PATH):
         for filename in files:
