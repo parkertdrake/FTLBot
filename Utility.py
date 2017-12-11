@@ -193,7 +193,6 @@ def load_image_from_file(in_file):
                 fullpath = os.path.join(path, filename)
                 img = open(fullpath)
 
-    print type(img)
     img = cv2.imread(fullpath )
     return cv2.cvtColor(img, cv2.COLOR_BGR2RGB) # cv2 default color is brg (for some ungodly reason)
 
