@@ -197,7 +197,6 @@ class Encounter:
             else:
                 door.is_open = True
 
-
     # Several functions to update status of enemy's ship
     """
     identifies enemy ship type using OCR
