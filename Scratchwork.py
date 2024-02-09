@@ -41,7 +41,7 @@ while True:
     if missiles.ready and laser.ready:
         missile_command = FiringCommand(missiles, enc.enemy_ship.shields)
         laser_command = FiringCommand(laser, enc.enemy_ship.weapons)
-        print "firing!"
+        print ("firing!")
         if enc.enemy_ship.bubbles > 0:
             missile_command.execute()
             sleep(.75)
